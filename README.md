@@ -15,7 +15,7 @@ Most of the work is done in native queries and views inside the MySQL database, 
 
 ### Systems Integrated At Launch
 
-Schools have many systems that they need integrated on a daily basis and S.A.G.E. should be the core engine behind updating most of them.  At launch, we plan to have the following ready to use.
+Schools have many systems that they need integrated on a daily basis and E.D.A.G.E. should be the core engine behind updating most of them.  At launch, we plan to have the following ready to use.
 
 ##### Data Stores
 * PowerSchool SIS
