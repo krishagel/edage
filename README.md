@@ -22,7 +22,7 @@ Schools have many systems that they need integrated on a daily basis and E.D.A.G
 * WESPaC (Skyward)
 * CSV
 
-Hopefully in the near future we will also be able to support fully support Skyward and also Aspen SIS as well as many other Student & Employee Information systems.
+Hopefully in the near future we will also be able to support Aspen SIS as well as many other Student & Employee Information systems.
 
 ##### External Systems
 * Active Directory Accounts
