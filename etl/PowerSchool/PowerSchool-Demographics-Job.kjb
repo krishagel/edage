@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job>
+  <name>PowerSchool-Demographics-Job</name>
+    <description/>
+    <extended_description/>
+    <job_version/>
+  <directory>&#47;</directory>
+  <created_user>-</created_user>
+  <created_date>2012&#47;02&#47;14 09:44:37.582</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2012&#47;02&#47;14 09:44:37.582</modified_date>
+    <parameters>
+    </parameters>
+  <connection>
+    <name>sage (localhost)</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>sage</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+    <slaveservers>
+    </slaveservers>
+<job-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_JOB</id><enabled>Y</enabled><name>ID_JOB</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>JOBNAME</id><enabled>Y</enabled><name>JOBNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field></job-log-table>
+<jobentry-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>JOBNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>JOBENTRYNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>RESULT</id><enabled>Y</enabled><name>RESULT</name></field><field><id>NR_RESULT_ROWS</id><enabled>Y</enabled><name>NR_RESULT_ROWS</name></field><field><id>NR_RESULT_FILES</id><enabled>Y</enabled><name>NR_RESULT_FILES</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field><field><id>COPY_NR</id><enabled>N</enabled><name>COPY_NR</name></field></jobentry-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+   <pass_batchid>N</pass_batchid>
+   <shared_objects_file/>
+  <entries>
+    <entry>
+      <name>START</name>
+      <description/>
+      <type>SPECIAL</type>
+      <start>Y</start>
+      <dummy>N</dummy>
+      <repeat>N</repeat>
+      <schedulerType>0</schedulerType>
+      <intervalSeconds>0</intervalSeconds>
+      <intervalMinutes>60</intervalMinutes>
+      <hour>12</hour>
+      <minutes>0</minutes>
+      <weekDay>1</weekDay>
+      <DayOfMonth>1</DayOfMonth>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>17</xloc>
+      <yloc>13</yloc>
+      </entry>
+    <entry>
+      <name>Is Today Saturday?</name>
+      <description/>
+      <type>EVAL</type>
+      <script>function today () {
+	var now = new Date();
+	var day = now.getDay();
+	if (day==6) {
+		return true;
+	} else {
+		return false;
+	}
+}
+today();</script>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>973</xloc>
+      <yloc>14</yloc>
+      </entry>
+    <entry>
+      <name>Daily SQL Data Rollover Statements</name>
+      <description/>
+      <type>SQL</type>
+      <sql>TRUNCATE TABLE stu_d6;
+INSERT INTO `stu_d6` SELECT * FROM `stu_d5`;
+TRUNCATE TABLE stu_d5;
+INSERT INTO `stu_d5` SELECT * FROM `stu_d4`;
+TRUNCATE TABLE stu_d4;
+INSERT INTO `stu_d4` SELECT * FROM `stu_d3`;
+TRUNCATE TABLE stu_d3;
+INSERT INTO `stu_d3` SELECT * FROM `stu_d2`;
+TRUNCATE TABLE stu_d2;
+INSERT INTO `stu_d2` SELECT * FROM `stu_d1`;
+TRUNCATE TABLE stu_d1;
+INSERT INTO `stu_d1` SELECT * FROM `stu_d0`;
+
+TRUNCATE TABLE enr_d6;
+INSERT INTO `enr_d6` SELECT * FROM `enr_d5`;
+TRUNCATE TABLE enr_d5;
+INSERT INTO `enr_d5` SELECT * FROM `enr_d4`;
+TRUNCATE TABLE enr_d4;
+INSERT INTO `enr_d4` SELECT * FROM `enr_d3`;
+TRUNCATE TABLE enr_d3;
+INSERT INTO `enr_d3` SELECT * FROM `enr_d2`;
+TRUNCATE TABLE enr_d2;
+INSERT INTO `enr_d2` SELECT * FROM `enr_d1`;
+TRUNCATE TABLE enr_d1;
+INSERT INTO `enr_d1` SELECT * FROM `enr_d0`;
+
+TRUNCATE TABLE cou_d6;
+INSERT INTO `cou_d6` SELECT * FROM `cou_d5`;
+TRUNCATE TABLE cou_d5;
+INSERT INTO `cou_d5` SELECT * FROM `cou_d4`;
+TRUNCATE TABLE cou_d4;
+INSERT INTO `cou_d4` SELECT * FROM `cou_d3`;
+TRUNCATE TABLE cou_d3;
+INSERT INTO `cou_d3` SELECT * FROM `cou_d2`;
+TRUNCATE TABLE cou_d2;
+INSERT INTO `cou_d2` SELECT * FROM `cou_d1`;
+TRUNCATE TABLE cou_d1;
+INSERT INTO `cou_d1` SELECT * FROM `cou_d0`;
+
+TRUNCATE TABLE stf_d6;
+INSERT INTO `stf_d6` SELECT * FROM `stf_d5`;
+TRUNCATE TABLE stf_d5;
+INSERT INTO `stf_d5` SELECT * FROM `stf_d4`;
+TRUNCATE TABLE stf_d4;
+INSERT INTO `stf_d4` SELECT * FROM `stf_d3`;
+TRUNCATE TABLE stf_d3;
+INSERT INTO `stf_d3` SELECT * FROM `stf_d2`;
+TRUNCATE TABLE stf_d2;
+INSERT INTO `stf_d2` SELECT * FROM `stf_d1`;
+TRUNCATE TABLE stf_d1;
+INSERT INTO `stf_d1` SELECT * FROM `stf_d0`;
+
+call p_genv_curr_stu();
+call p_genv_curr_stf();
+call p_genv_curr_enr();
+call p_genv_curr_cou();</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>sage (localhost)</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>159</xloc>
+      <yloc>13</yloc>
+      </entry>
+    <entry>
+      <name>Weekly SQL Data Rollover Statements</name>
+      <description/>
+      <type>SQL</type>
+      <sql>TRUNCATE TABLE stu_w;
+INSERT INTO `stu_w` SELECT * FROM `stu_d0`;
+
+TRUNCATE TABLE enr_w;
+INSERT INTO `enr_w` SELECT * FROM `enr_d0`;
+
+TRUNCATE TABLE cou_w;
+INSERT INTO `cou_w` SELECT * FROM `cou_d0`;
+
+TRUNCATE TABLE stf_w;
+INSERT INTO `stf_w` SELECT * FROM `stf_d0`;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>sage (localhost)</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1010</xloc>
+      <yloc>140</yloc>
+      </entry>
+    <entry>
+      <name>Load PowerSchool Student Demographics</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;PowerSchool-Student-Demographics-Transform.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>396</xloc>
+      <yloc>14</yloc>
+      </entry>
+    <entry>
+      <name>Load PowerSchool Course Enrollments</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;PowerSchool-Course-Enrollments-Transform.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>394</xloc>
+      <yloc>95</yloc>
+      </entry>
+    <entry>
+      <name>Load PowerSchool Courses</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}&#47;PowerSchool-Courses-Transform.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>392</xloc>
+      <yloc>186</yloc>
+      </entry>
+    <entry>
+      <name>Monthly SQL Data Rollover Statements</name>
+      <description/>
+      <type>SQL</type>
+      <sql>TRUNCATE TABLE stu_m;
+INSERT INTO `stu_m` SELECT * FROM `stu_d0`;
+
+TRUNCATE TABLE enr_m;
+INSERT INTO `enr_m` SELECT * FROM `enr_d0`;
+
+TRUNCATE TABLE cou_m;
+INSERT INTO `cou_m` SELECT * FROM `cou_d0`;
+
+TRUNCATE TABLE stf_m;
+INSERT INTO `stf_m` SELECT * FROM `stf_d0`;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>sage (localhost)</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>772</xloc>
+      <yloc>137</yloc>
+      </entry>
+    <entry>
+      <name>Is Today The First Of The Month?</name>
+      <description/>
+      <type>EVAL</type>
+      <script>function today () {
+	var now = new Date();
+	var day = now.getDate();
+	if (day==1) {
+		return true;
+	} else {
+		return false;
+	}
+}
+today();</script>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>699</xloc>
+      <yloc>14</yloc>
+      </entry>
+  </entries>
+  <hops>
+    <hop>
+      <from>Is Today Saturday?</from>
+      <to>Weekly SQL Data Rollover Statements</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load PowerSchool Student Demographics</from>
+      <to>Load PowerSchool Course Enrollments</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load PowerSchool Course Enrollments</from>
+      <to>Load PowerSchool Courses</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Is Today The First Of The Month?</from>
+      <to>Monthly SQL Data Rollover Statements</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Is Today The First Of The Month?</from>
+      <to>Is Today Saturday?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Monthly SQL Data Rollover Statements</from>
+      <to>Is Today Saturday?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Daily SQL Data Rollover Statements</from>
+      <to>Load PowerSchool Student Demographics</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load PowerSchool Courses</from>
+      <to>Is Today The First Of The Month?</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Daily SQL Data Rollover Statements</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+  </hops>
+  <notepads>
+  </notepads>
+</job>
