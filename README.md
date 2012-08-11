@@ -2,7 +2,7 @@
 
 ## Overview
 
-**School Account Generation Engine** is a modular set of databases, scripts, queries and a REST api to make it easier for schools to handle account generation on a daily, weekly, or monthly basis. 
+**Educational Data & Account Generation Engine** is a modular set of databases, scripts, queries and a REST api to make it easier for schools to handle account generation on a daily, weekly, or monthly basis. 
 
 ### Technologies Used
 
@@ -19,7 +19,7 @@ Schools have many systems that they need integrated on a daily basis and S.A.G.E
 
 ##### Data Stores
 * PowerSchool SIS
-* WESPaC (Skyward) - Staff Support Only in initial release.
+* WESPaC (Skyward)
 * CSV
 
 Hopefully in the near future we will also be able to support fully support Skyward and also Aspen SIS as well as many other Student & Employee Information systems.
