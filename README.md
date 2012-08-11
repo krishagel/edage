@@ -1,4 +1,4 @@
-# School Account Generation Engine
+# Educational Data & Account Generation Engine
 
 ## Overview
 
