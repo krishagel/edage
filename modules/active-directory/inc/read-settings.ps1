@@ -22,6 +22,14 @@ Import-Module mysqllib
 # Days since an account has been disabled before it is removed
 $disabled_days = 365
 
+# Mail Server Settings
+$mail_server = "smtp.gmail.com"
+$mail_port = "587"
+$mail_username = "krishagel"
+$mail_password = ""
+$mail_to = "kris@krishagel.com"
+$mail_from = "krishagel@gmail.com"
+
 # Database Settings
 $dbserver = "localhost"
 $dbuser = "khagel"

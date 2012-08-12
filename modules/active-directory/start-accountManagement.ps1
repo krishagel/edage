@@ -39,6 +39,12 @@ Param (
 $lib_home = "Z:\Educational-Data-and-Account-Generation-Engine\modules\active-directory\inc\"
 Get-ChildItem ($lib_home + "*.ps1") | ForEach-Object {. (Join-Path $lib_home $_.Name)} | Out-Null
 
+##Get Current DB Time
+$dbtime = get-currentDbTime
+
+##Pause script for 1 second to ease reporting
+Start-Sleep -s 1
+
 ##Script Controller
 
 switch($class) {
@@ -186,3 +192,4 @@ switch($class) {
 	}
 	default {"'class' is a required parameter"}
 }
+send-accountReport -time $dbtime
