@@ -13,12 +13,19 @@
 	
 #>
 
-# Load up the Quest Software AD Cmdlets
+# Load the Quest Software AD Cmdlets
 Add-PSSnapin Quest.ActiveRoles.ADManagement -ErrorAction SilentlyContinue
+
+# Load the SQLPSX Module to be able to use MySQL database in scripts
+Import-Module mysqllib
+
+# Days since an account has been disabled before it is removed
+$disabled_days = 365
 
 # Database Settings
 $dbserver = "localhost"
 $dbuser = "khagel"
 $dbpass = "3wedCg12"
-$log_db = "acct_log"
+$log_db = "edage_logs"
+$log_tbl = "acct_gen"
 $acct_data_db = "data_mart"

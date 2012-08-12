@@ -36,7 +36,7 @@ Param (
 )
 
 ##Load Script Libraries
-$lib_home = "Z:\acct-management\inc\"
+$lib_home = "Z:\Educational-Data-and-Account-Generation-Engine\modules\active-directory\inc\"
 Get-ChildItem ($lib_home + "*.ps1") | ForEach-Object {. (Join-Path $lib_home $_.Name)} | Out-Null
 
 ##Script Controller
@@ -46,37 +46,46 @@ switch($class) {
 		switch ($type) {
 			"add" {
 				if ($acct) {
-					{Write-Host "Adding a single staff member is not yet implemented"}
+					write-dblog -header "Staff Add" -message "Initialization" -account $acct
+					Write-Host "Adding a single staff member is not yet implemented"
 				} else {
-					{Write-Host "Adding all necessary staff is not yet implemented"}
+					write-dblog -header "Staff Add" -message "Initialization" -account "Global"
+					Write-Host "Adding a staff members is not yet implemented"
 				}
 			}
 			"delete" {
 				if ($acct) {
-					{Write-Host "Deleting a single staff member is not yet implemented"}
+					write-dblog -header "Staff Delete" -message "Initialization" -account $acct
+					Write-Host "Deleting a single staff member is not yet implemented"
 				} else {
-					{Write-Host "Deleting all necessary staff is not yet implemented"}
+					write-dblog -header "Staff Delete" -message "Initialization" -account "Global"
+					Write-Host "Deleting all necessary staff is not yet implemented"
 				}
 			}
 			"update" {
 				if ($acct) {
-					{Write-Host "Updating a single staff member is not yet implemented"}
+					write-dblog -header "Staff Update" -message "Initialization" -account $acct
+					Write-Host "Updating a single staff member is not yet implemented"
 				} else {
-					{Write-Host "Updating all necessary staff is not yet implemented"}
+					write-dblog -header "Staff Update" -message "Initialization" -account "Global"
+					Write-Host "Updating all necessary staff is not yet implemented"
 				}
 			}
 			"disable" {
 				if ($acct) {
-					{Write-Host "Updating a single staff member is not yet implemented"}
+					write-dblog -header "Staff Disable" -message "Initialization" -account $acct
+					Write-Host "Updating a single staff member is not yet implemented"
 				} else {
-					{Write-Host "You must provide an account to disable a stafft member."}
+					write-dblog -header "Staff Disable" -message "Initialization" -account $acct
+					Write-Host "Updating all necessary staff is not yet implemented."
 				}
 			}
 			"enable" {
 				if ($acct) {
-					{Write-Host "Enabling a single student is not yet implemented"}
+					write-dblog -header "Staff Enable" -message "Initialization" -account $acct
+					Write-Host "Enabling a single student is not yet implemented"
 				} else {
-					{Write-Host "You must provide an account to enable a staff member."}
+					Write-Host "You must provide an account to enable a staff member."
 				}
 			}
 			default {"'Type' is a required parameter"}
@@ -86,37 +95,45 @@ switch($class) {
 		switch ($type) {
 			"add" {
 				if ($acct) {
-					{Write-Host "Adding a single student is not yet implemented"}
+					write-dblog -header "Student Add" -message "Initialization" -account $acct
+					Write-Host "Adding a single student is not yet implemented"
 				} else {
-					{Write-Host "Adding all necessary students is not yet implemented"}
+					write-dblog -header "Student Add" -message "Initialization" -account "Global"
+					Write-Host "Adding all necessary students is not yet implemented"
 				}
 			}
 			"delete" {
 				if ($acct) {
-					{Write-Host "Deleting a single student is not yet implemented"}
+					write-dblog -header "Student Delete" -message "Initialization" -account $acct
+					Write-Host "Deleting a single student is not yet implemented"
 				} else {
-					{Write-Host "Deleting all necessary students is not yet implemented"}
+					write-dblog -header "Student Delete" -message "Initialization" -account "Global"
+					Write-Host "Deleting all necessary students is not yet implemented"
 				}
 			}
 			"update" {
 				if ($acct) {
-					{Write-Host "Updating a single student is not yet implemented"}
+					write-dblog -header "Student Update" -message "Initialization" -account $acct
+					Write-Host "Updating a single student is not yet implemented"
 				} else {
-					{Write-Host "Updating all necessary students is not yet implemented"}
+					write-dblog -header "Student Update" -message "Initialization" -account "Global"
+					Write-Host "Updating all necessary students is not yet implemented"
 				}
 			}
 			"disable" {
 				if ($acct) {
-					{Write-Host "Updating a single student is not yet implemented"}
+					write-dblog -header "Student Disable" -message "Initialization" -account $acct
+					Write-Host "Updating a single student is not yet implemented"
 				} else {
-					{Write-Host "You must provide an account to disable a student."}
+					Write-Host "You must provide an account to disable a student."
 				}
 			}
 			"enable" {
 				if ($acct) {
-					{Write-Host "Enabling a single student is not yet implemented"}
+					write-dblog -header "Student Enable" -message "Initialization" -account $acct
+					Write-Host "Enabling a single student is not yet implemented"
 				} else {
-					{Write-Host "You must provide an account to enable a student."}
+					Write-Host "You must provide an account to enable a student."
 				}
 			}
 			default {"'Type' is a required parameter"}
@@ -126,37 +143,42 @@ switch($class) {
 		switch ($type) {
 			"add" {
 				if ($acct) {
-					{Write-Host "Adding a single contract person is not yet implemented"}
+					write-dblog -header "Contract Add" -message "Initialization" -account $acct
+					Write-Host "Adding a single contract person is not yet implemented"
 				} else {
-					{Write-Host "You must provide an account to add a contract person."}
+					Write-Host "You must provide an account to add a contract person."
 				}
 			}
 			"delete" {
 				if ($acct) {
-					{Write-Host "Deleting a single student is not yet implemented"}
+					write-dblog -header "Contract Delete" -message "Initialization" -account $acct
+					Write-Host "Deleting a single student is not yet implemented"
 				} else {
-					{Write-Host "You must provide an account to delete a contract person."}
+					Write-Host "You must provide an account to delete a contract person."
 				}
 			}
 			"update" {
 				if ($acct) {
-					{Write-Host "Updating a single student is not yet implemented"}
+					write-dblog -header "Contract Update" -message "Initialization" -account $acct
+					Write-Host "Updating a single student is not yet implemented"
 				} else {
-					{Write-Host "You must provide an account to update a contract person."}
+					Write-Host "You must provide an account to update a contract person."
 				}
 			}
 			"disable" {
 				if ($acct) {
-					{Write-Host "Updating a single student is not yet implemented"}
+					write-dblog -header "Contract Disable" -message "Initialization" -account $acct
+					Write-Host "Updating a single student is not yet implemented"
 				} else {
-					{Write-Host "You must provide an account to disable a contract person."}
+					Write-Host "You must provide an account to disable a contract person."
 				}
 			}
 			"enable" {
 				if ($acct) {
-					{Write-Host "Enabling a single student is not yet implemented"}
+					write-dblog -header "Contract Enable" -message "Initialization" -account $acct
+					Write-Host "Enabling a single student is not yet implemented"
 				} else {
-					{Write-Host "You must provide an account to enable a contract person."}
+					Write-Host "You must provide an account to enable a contract person."
 				}
 			}
 			default {"'Type' is a required parameter"}
