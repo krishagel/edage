@@ -6,10 +6,13 @@
 
 ### Technologies Used
 
-* MySQL Database
-* Pentaho Data Integration (Kettle)
-* PHP
-* PowerShell
+* [MySQL Database](http://dev.mysql.com/downloads/mysql/)
+* [Pentaho Data Integration (Kettle)](http://sourceforge.net/projects/pentaho/files/Data%20Integration/)
+* [PHP](http://php.net/downloads.php) (Plus these add-onsw)
+	* [Slim Framework](http://www.slimframework.com/code)
+* [PowerShell](http://technet.microsoft.com/en-us/library/bb978526.aspx) (Plus these modules)
+  * [SQLPSX](http://sqlpsx.codeplex.com/)
+  * [Quest AD Cmdlets](http://www.quest.com/powershell/activeroles-server.aspx)
 
 Most of the work is done in native queries and views inside the MySQL database, but PDI will be used to do the SIS connections and also major data moves inside the database.
 
