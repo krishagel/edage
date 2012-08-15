@@ -1,8 +1,8 @@
 CREATE DATABASE  IF NOT EXISTS `wespac_staging` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `data_staging`;
+USE `wespac_staging`;
 -- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
 --
--- Host: localhost    Database: data_staging
+-- Host: localhost    Database: wespac_staging
 -- ------------------------------------------------------
 -- Server version	5.5.25a
 
@@ -181,7 +181,8 @@ CREATE TABLE `entity` (
   `X-OVERRIDE-DEF-GRD-PRD` char(1) DEFAULT NULL,
   `ENTITY-SHORT-NAME` varchar(16) DEFAULT NULL,
   `ENTITY-STATUS` varchar(2) DEFAULT NULL,
-  `ENT-DIST-CAL-CODE` varchar(16) DEFAULT NULL
+  `ENT-DIST-CAL-CODE` varchar(16) DEFAULT NULL,
+  KEY `SCHOOL-ID` (`ENTITY-ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -353,7 +354,8 @@ CREATE TABLE `course` (
   `WA-NATL-COMP-TEST` char(1) DEFAULT NULL,
   `WA-SCIENCE-LAB` char(1) DEFAULT NULL,
   `WA-QUANTITATIVE` char(1) DEFAULT NULL,
-  `SCHD-LOCK` char(1) DEFAULT NULL
+  `SCHD-LOCK` char(1) DEFAULT NULL,
+  KEY `COR-NUM-ID` (`COR-NUM-ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -712,7 +714,8 @@ CREATE TABLE `zip` (
   `ZIP-COUNTRY` varchar(20) DEFAULT NULL,
   `LIVE` char(1) DEFAULT NULL,
   `X-VALIDATE-ZIP` char(1) DEFAULT NULL,
-  `X-DIST-ZIP` char(1) DEFAULT NULL
+  `X-DIST-ZIP` char(1) DEFAULT NULL,
+  KEY `ZIP-CODE` (`ZIP-CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -773,7 +776,37 @@ CREATE TABLE `class_meet` (
   `SR-CHAR` text,
   `CM-REF-ID` int(11) DEFAULT NULL,
   `MEET-SEQ` int(11) DEFAULT NULL,
-  `WA-TEACHER-OF-RECORD` char(1) DEFAULT NULL
+  `WA-TEACHER-OF-RECORD` char(1) DEFAULT NULL,
+  KEY `COR-NUM-ID` (`COR-NUM-ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `sgbmst_gradebook`
+--
+
+DROP TABLE IF EXISTS `sgbmst_gradebook`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sgbmst_gradebook` (
+  `COR-NUM-ID` int(11) DEFAULT NULL,
+  `TRACK` int(11) DEFAULT NULL,
+  `CLAS-SECTION` varchar(10) DEFAULT NULL,
+  `ENTITY-ID` varchar(10) DEFAULT NULL,
+  `GB-ID` int(11) DEFAULT NULL,
+  `GB-WEIGHT` int(11) DEFAULT NULL,
+  `TEACHER-ID` int(11) DEFAULT NULL,
+  `SCORE-CAT-ID` int(11) DEFAULT NULL,
+  `SCHOOL-YEAR` int(11) DEFAULT NULL,
+  `SGBWSM-ID` int(11) DEFAULT NULL,
+  `SCHOOL-YEAR-CODE` varchar(16) DEFAULT NULL,
+  `SGBMST-TEACHER-TEXT` varchar(16) DEFAULT NULL,
+  `SGBASN-CNT` int(11) DEFAULT NULL,
+  `SGBMST-CHAR-EXT` varchar(180) DEFAULT NULL,
+  `SGBMST-DEC-EXT` varchar(220) DEFAULT NULL,
+  `SGBMST-LOG-EXT` varchar(80) DEFAULT NULL,
+  `IS-MASTER-CLASS` char(1) DEFAULT NULL,
+  `USE-VAR-SCALE` varchar(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -879,33 +912,34 @@ CREATE TABLE `stu_cls_crdt_hst` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `sgbmst_gradebook`
+-- Temporary table structure for view `v_edage_stu`
 --
 
-DROP TABLE IF EXISTS `sgbmst_gradebook`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sgbmst_gradebook` (
-  `COR-NUM-ID` int(11) DEFAULT NULL,
-  `TRACK` int(11) DEFAULT NULL,
-  `CLAS-SECTION` varchar(10) DEFAULT NULL,
-  `ENTITY-ID` varchar(10) DEFAULT NULL,
-  `GB-ID` int(11) DEFAULT NULL,
-  `GB-WEIGHT` int(11) DEFAULT NULL,
-  `TEACHER-ID` int(11) DEFAULT NULL,
-  `SCORE-CAT-ID` int(11) DEFAULT NULL,
-  `SCHOOL-YEAR` int(11) DEFAULT NULL,
-  `SGBWSM-ID` int(11) DEFAULT NULL,
-  `SCHOOL-YEAR-CODE` varchar(16) DEFAULT NULL,
-  `SGBMST-TEACHER-TEXT` varchar(16) DEFAULT NULL,
-  `SGBASN-CNT` int(11) DEFAULT NULL,
-  `SGBMST-CHAR-EXT` varchar(180) DEFAULT NULL,
-  `SGBMST-DEC-EXT` varchar(220) DEFAULT NULL,
-  `SGBMST-LOG-EXT` varchar(80) DEFAULT NULL,
-  `IS-MASTER-CLASS` char(1) DEFAULT NULL,
-  `USE-VAR-SCALE` varchar(2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `v_edage_stu`;
+/*!50001 DROP VIEW IF EXISTS `v_edage_stu`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `v_edage_stu` (
+  `student_id` varchar(24),
+  `first_name` varchar(30),
+  `middle_name` varchar(30),
+  `last_name` varchar(60),
+  `grade` bigint(22),
+  `school_id` varchar(10),
+  `phone` varchar(20),
+  `birthdate` datetime,
+  `street` char(0),
+  `city` varchar(40),
+  `state` varchar(4),
+  `zip` varchar(12),
+  `username` varchar(25),
+  `password` varchar(38),
+  `email` varchar(44),
+  `gender` varchar(7),
+  `guardian_name` char(0),
+  `state_id` bigint(20)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `relationship`
@@ -998,6 +1032,114 @@ CREATE TABLE `stu_current_gpa` (
   `SCG-MT-TIME-UPD` text,
   `SCG-MT-DATE-UPD` text,
   `TX-LOCAL-CREDIT` decimal(20,5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `hpmasn_assignments`
+--
+
+DROP TABLE IF EXISTS `hpmasn_assignments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hpmasn_assignments` (
+  `NAME-ID` int(11) DEFAULT NULL,
+  `HPMASN-SUPER-ID` int(11) DEFAULT NULL,
+  `HPMASN-BASE-MTX` varchar(16) DEFAULT NULL,
+  `HPADCQ-FRQ-CODE` varchar(10) DEFAULT NULL,
+  `HAADSC-ID-GRADE-TO` int(11) DEFAULT NULL,
+  `HAADSC-ID-GRADE-FROM` int(11) DEFAULT NULL,
+  `HPADCP-PAY-CODE` varchar(10) DEFAULT NULL,
+  `HAAMXM-CODE` varchar(16) DEFAULT NULL,
+  `HAADSC-ID-GRP` int(11) DEFAULT NULL,
+  `HAADSC-ID-DPT` int(11) DEFAULT NULL,
+  `HAADSC-ID-ASN` int(11) DEFAULT NULL,
+  `HAADSC-ID-POS` int(11) DEFAULT NULL,
+  `HAAPLC-CODE` varchar(16) DEFAULT NULL,
+  `HPMASN-FIS-YEAR` int(11) DEFAULT NULL,
+  `HPMASN-NBR-MIN` int(11) DEFAULT NULL,
+  `HPMASN-NBR-HRS` int(11) DEFAULT NULL,
+  `HPMASN-NBR-DAYS` decimal(17,2) DEFAULT NULL,
+  `HPMASN-END-DATE` datetime DEFAULT NULL,
+  `HPMASN-START-DATE` datetime DEFAULT NULL,
+  `HAACAM-ID` int(11) DEFAULT NULL,
+  `HPMASN-ID` int(11) DEFAULT NULL,
+  `HPMPOS-ID` int(11) DEFAULT NULL,
+  `HAABLD-BLD-CODE` varchar(10) DEFAULT NULL,
+  `HPMASN-SALARY-TYPE` varchar(16) DEFAULT NULL,
+  `HPMASN-FTE` decimal(25,10) DEFAULT NULL,
+  `HPMASN-EXP-DATE` datetime DEFAULT NULL,
+  `HPMASN-IMP-DATE` datetime DEFAULT NULL,
+  `HPMASN-ASSIGNED-DATE` datetime DEFAULT NULL,
+  `HPMASN-CALC-METHOD` varchar(16) DEFAULT NULL,
+  `HPMASN-ENTERED-PAY` decimal(17,2) DEFAULT NULL,
+  `HPMASN-TIME` int(11) DEFAULT NULL,
+  `HPMASN-CONTRACT-AMT` decimal(17,2) DEFAULT NULL,
+  `HPMASN-PER-DIEM` decimal(17,2) DEFAULT NULL,
+  `HAADSC-ID-JOB-TYPE` int(11) DEFAULT NULL,
+  `HAAMXM-TYPE` varchar(20) DEFAULT NULL,
+  `HPMASN-NEG-PLAN-X` char(1) DEFAULT NULL,
+  `HPMPLN-ID` int(11) DEFAULT NULL,
+  `NALPHAKEY` varchar(22) DEFAULT NULL,
+  `HAACAM-CODE` varchar(20) DEFAULT NULL,
+  `HPMASN-TEMP-ASSIGN-X` char(1) DEFAULT NULL,
+  `HPMASN-CON-SIGN-DATE` datetime DEFAULT NULL,
+  `HPMASN-CON-START-DATE` datetime DEFAULT NULL,
+  `HPMASN-CON-STOP-DATE` datetime DEFAULT NULL,
+  `HPMASN-USE-CAL-X` char(1) DEFAULT NULL,
+  `HPMASN-TX-BASE-LANE` varchar(16) DEFAULT NULL,
+  `HPMASN-TX-BASE-STEP` decimal(17,2) DEFAULT NULL,
+  `HPMASN-TX-PAY-ACTIVITY-CODE` varchar(16) DEFAULT NULL,
+  `HPMASN-TX-ROLE-ID` varchar(16) DEFAULT NULL,
+  `WA-HPMASN-RETIRE-ELIGIBLE` char(1) DEFAULT NULL,
+  `HPMASN-CONTRACT-SIGN-DATE` datetime DEFAULT NULL,
+  `HPMASN-CALCULATED-X` char(1) DEFAULT NULL,
+  `HPMASN-HRS-PER-DATE` int(11) DEFAULT NULL,
+  `HPMASN-MIN-PER-DAY` int(11) DEFAULT NULL,
+  `HPMASN-ALT-HRLY-X` char(1) DEFAULT NULL,
+  `HPMASN-INS-FTE` decimal(25,10) DEFAULT NULL,
+  `HPMASN-STATE-FTE` decimal(25,10) DEFAULT NULL,
+  `HPMASN-PAY-REC-FREQ` varchar(16) DEFAULT NULL,
+  `HPMASN-NOTIFY-PR-DATE` datetime DEFAULT NULL,
+  `HPMASN-PR-NOTIFIED` varchar(16) DEFAULT NULL,
+  `HPMASN-NO-FTE-CALC` char(1) DEFAULT NULL,
+  `HPMASN-ENTERED-HOURLY` decimal(17,6) DEFAULT NULL,
+  `HPMASN-TASB-LOCK-X` char(1) DEFAULT NULL,
+  `HPMASN-WA-FACTOR` decimal(17,2) DEFAULT NULL,
+  `HPMASN-SEC-PER-DAY` bigint(20) DEFAULT NULL,
+  `HPMASN-SEC-PER-DATE` int(11) DEFAULT NULL,
+  `HPMASN-FTE-CALC` decimal(25,10) DEFAULT NULL,
+  `HPMASN-HRS-PER-DAY-DEC` decimal(20,8) DEFAULT NULL,
+  `HPMASN-DISPLAY-IN-TT` char(1) DEFAULT NULL,
+  `HPMPLN-DESC` varchar(60) DEFAULT NULL,
+  `LAST-NAME` varchar(60) DEFAULT NULL,
+  `MIDDLE-NAME` varchar(30) DEFAULT NULL,
+  `FIRST-NAME` varchar(30) DEFAULT NULL,
+  `HAADSC-DESC-JOB-TYPE` varchar(60) DEFAULT NULL,
+  `HAAMXM-DESC` varchar(60) DEFAULT NULL,
+  `HAAPLC-DESC` varchar(36) DEFAULT NULL,
+  `HAACAM-DESC` varchar(60) DEFAULT NULL,
+  `HAABLD-BLD-DESC` varchar(30) DEFAULT NULL,
+  `HAADSC-DESC-GRADE-TO` varchar(60) DEFAULT NULL,
+  `HAADSC-DESC-GRADE-FROM` varchar(60) DEFAULT NULL,
+  `HAADSC-DESC-GRP` varchar(60) DEFAULT NULL,
+  `HAADSC-DESC-DPT` varchar(60) DEFAULT NULL,
+  `HAADSC-DESC-ASN` varchar(60) DEFAULT NULL,
+  `HAADSC-DESC-POS` varchar(60) DEFAULT NULL,
+  `HPMASN-CREDITS` decimal(20,2) DEFAULT NULL,
+  `HPMASN-STEP` double DEFAULT NULL,
+  `HPMASN-LANE` varchar(16) DEFAULT NULL,
+  `HPMASN-VACANT-POS` varchar(16) DEFAULT NULL,
+  `HPMPCG-CODE` varchar(16) DEFAULT NULL,
+  `SIF-HPMASN-REF-ID` varchar(38) DEFAULT NULL,
+  `OVERTIME-PAY-CODE` varchar(16) DEFAULT NULL,
+  `HPMASN-OT-FACTOR` decimal(17,2) DEFAULT NULL,
+  `HOURLY-PAY-CODE` varchar(16) DEFAULT NULL,
+  `DAILY-PAY-CODE` varchar(16) DEFAULT NULL,
+  `HPETER-TERM-CODE` varchar(10) DEFAULT NULL,
+  `HPMASN-TOTAL-MIN` int(11) DEFAULT NULL,
+  `HPMASN-TOTAL-HRS` int(11) DEFAULT NULL,
+  `HPMASN-PRIMARY-X` char(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1454,7 +1596,9 @@ CREATE TABLE `student` (
   `FL-LANG-QUESTIONS` varchar(2) DEFAULT NULL,
   `COHORT-OVERRIDE` varchar(16) DEFAULT NULL,
   `OFF-CAMPUS-LUNCH-ELIGIBLE` char(1) DEFAULT NULL,
-  `USE-OFF-CAMPUS-LUNCH-OVERRIDE` char(1) DEFAULT NULL
+  `USE-OFF-CAMPUS-LUNCH-OVERRIDE` char(1) DEFAULT NULL,
+  KEY `NAME-ID` (`NAME-ID`),
+  KEY `STUDENT-ID` (`STUDENT-ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1494,7 +1638,9 @@ CREATE TABLE `address` (
   `PATH-ID-MINORITY` varchar(18) DEFAULT NULL,
   `COUNTRY-ID` varchar(16) DEFAULT NULL,
   `PATH-ID-MAJORITY` varchar(18) DEFAULT NULL,
-  `RURAL-BOX-NBR` varchar(16) DEFAULT NULL
+  `RURAL-BOX-NBR` varchar(16) DEFAULT NULL,
+  KEY `ADDRESS-ID` (`ADDRESS-ID`),
+  KEY `ZIP-CODE` (`ZIP-CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1531,6 +1677,25 @@ CREATE TABLE `sgbasd_assign_detail` (
   `MODIFIED-TIME` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary table structure for view `v_edage_cou`
+--
+
+DROP TABLE IF EXISTS `v_edage_cou`;
+/*!50001 DROP VIEW IF EXISTS `v_edage_cou`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `v_edage_cou` (
+  `course_id` varchar(34),
+  `school_id` varchar(10),
+  `period` int(11),
+  `section` varchar(10),
+  `course_code` varchar(20),
+  `course_name` varchar(30),
+  `teacher_id` varchar(22)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `student_ew`
@@ -1766,28 +1931,26 @@ CREATE TABLE `name` (
   `FORCE-PASS-CHANGE` char(1) DEFAULT NULL,
   `ALT-ID-VENDOR` varchar(20) DEFAULT NULL,
   `CONF-EMAIL-X` char(1) DEFAULT NULL,
-  `CONF-EMER-CONTACT-X` char(1) DEFAULT NULL
+  `CONF-EMER-CONTACT-X` char(1) DEFAULT NULL,
+  KEY `name-id` (`NAME-ID`),
+  KEY `ADDRESS-ID` (`ADDRESS-ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `homeroom`
+-- Temporary table structure for view `v_edage_enr`
 --
 
-DROP TABLE IF EXISTS `homeroom`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `homeroom` (
-  `ENTITY-ID` varchar(10) DEFAULT NULL,
-  `HOMEROOM-NUMBER` varchar(10) DEFAULT NULL,
-  `SCHOOL-ID` varchar(10) DEFAULT NULL,
-  `SUB-SCHOOL-NUMBER` varchar(6) DEFAULT NULL,
-  `HOMEROOM-TEACHER` int(11) DEFAULT NULL,
-  `BUILDING-ID` varchar(10) DEFAULT NULL,
-  `ROOM-NUMBER` varchar(10) DEFAULT NULL,
-  `SCHOOL-YEAR` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `v_edage_enr`;
+/*!50001 DROP VIEW IF EXISTS `v_edage_enr`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `v_edage_enr` (
+  `enrollment_id` varchar(59),
+  `course_id` varchar(34),
+  `student_id` varchar(24)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `stu_atnd_tot_hst`
@@ -1821,110 +1984,21 @@ CREATE TABLE `stu_atnd_tot_hst` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `hpmasn_assignments`
+-- Table structure for table `homeroom`
 --
 
-DROP TABLE IF EXISTS `hpmasn_assignments`;
+DROP TABLE IF EXISTS `homeroom`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `hpmasn_assignments` (
-  `NAME-ID` int(11) DEFAULT NULL,
-  `HPMASN-SUPER-ID` int(11) DEFAULT NULL,
-  `HPMASN-BASE-MTX` varchar(16) DEFAULT NULL,
-  `HPADCQ-FRQ-CODE` varchar(10) DEFAULT NULL,
-  `HAADSC-ID-GRADE-TO` int(11) DEFAULT NULL,
-  `HAADSC-ID-GRADE-FROM` int(11) DEFAULT NULL,
-  `HPADCP-PAY-CODE` varchar(10) DEFAULT NULL,
-  `HAAMXM-CODE` varchar(16) DEFAULT NULL,
-  `HAADSC-ID-GRP` int(11) DEFAULT NULL,
-  `HAADSC-ID-DPT` int(11) DEFAULT NULL,
-  `HAADSC-ID-ASN` int(11) DEFAULT NULL,
-  `HAADSC-ID-POS` int(11) DEFAULT NULL,
-  `HAAPLC-CODE` varchar(16) DEFAULT NULL,
-  `HPMASN-FIS-YEAR` int(11) DEFAULT NULL,
-  `HPMASN-NBR-MIN` int(11) DEFAULT NULL,
-  `HPMASN-NBR-HRS` int(11) DEFAULT NULL,
-  `HPMASN-NBR-DAYS` decimal(17,2) DEFAULT NULL,
-  `HPMASN-END-DATE` datetime DEFAULT NULL,
-  `HPMASN-START-DATE` datetime DEFAULT NULL,
-  `HAACAM-ID` int(11) DEFAULT NULL,
-  `HPMASN-ID` int(11) DEFAULT NULL,
-  `HPMPOS-ID` int(11) DEFAULT NULL,
-  `HAABLD-BLD-CODE` varchar(10) DEFAULT NULL,
-  `HPMASN-SALARY-TYPE` varchar(16) DEFAULT NULL,
-  `HPMASN-FTE` decimal(25,10) DEFAULT NULL,
-  `HPMASN-EXP-DATE` datetime DEFAULT NULL,
-  `HPMASN-IMP-DATE` datetime DEFAULT NULL,
-  `HPMASN-ASSIGNED-DATE` datetime DEFAULT NULL,
-  `HPMASN-CALC-METHOD` varchar(16) DEFAULT NULL,
-  `HPMASN-ENTERED-PAY` decimal(17,2) DEFAULT NULL,
-  `HPMASN-TIME` int(11) DEFAULT NULL,
-  `HPMASN-CONTRACT-AMT` decimal(17,2) DEFAULT NULL,
-  `HPMASN-PER-DIEM` decimal(17,2) DEFAULT NULL,
-  `HAADSC-ID-JOB-TYPE` int(11) DEFAULT NULL,
-  `HAAMXM-TYPE` varchar(20) DEFAULT NULL,
-  `HPMASN-NEG-PLAN-X` char(1) DEFAULT NULL,
-  `HPMPLN-ID` int(11) DEFAULT NULL,
-  `NALPHAKEY` varchar(22) DEFAULT NULL,
-  `HAACAM-CODE` varchar(20) DEFAULT NULL,
-  `HPMASN-TEMP-ASSIGN-X` char(1) DEFAULT NULL,
-  `HPMASN-CON-SIGN-DATE` datetime DEFAULT NULL,
-  `HPMASN-CON-START-DATE` datetime DEFAULT NULL,
-  `HPMASN-CON-STOP-DATE` datetime DEFAULT NULL,
-  `HPMASN-USE-CAL-X` char(1) DEFAULT NULL,
-  `HPMASN-TX-BASE-LANE` varchar(16) DEFAULT NULL,
-  `HPMASN-TX-BASE-STEP` decimal(17,2) DEFAULT NULL,
-  `HPMASN-TX-PAY-ACTIVITY-CODE` varchar(16) DEFAULT NULL,
-  `HPMASN-TX-ROLE-ID` varchar(16) DEFAULT NULL,
-  `WA-HPMASN-RETIRE-ELIGIBLE` char(1) DEFAULT NULL,
-  `HPMASN-CONTRACT-SIGN-DATE` datetime DEFAULT NULL,
-  `HPMASN-CALCULATED-X` char(1) DEFAULT NULL,
-  `HPMASN-HRS-PER-DATE` int(11) DEFAULT NULL,
-  `HPMASN-MIN-PER-DAY` int(11) DEFAULT NULL,
-  `HPMASN-ALT-HRLY-X` char(1) DEFAULT NULL,
-  `HPMASN-INS-FTE` decimal(25,10) DEFAULT NULL,
-  `HPMASN-STATE-FTE` decimal(25,10) DEFAULT NULL,
-  `HPMASN-PAY-REC-FREQ` varchar(16) DEFAULT NULL,
-  `HPMASN-NOTIFY-PR-DATE` datetime DEFAULT NULL,
-  `HPMASN-PR-NOTIFIED` varchar(16) DEFAULT NULL,
-  `HPMASN-NO-FTE-CALC` char(1) DEFAULT NULL,
-  `HPMASN-ENTERED-HOURLY` decimal(17,6) DEFAULT NULL,
-  `HPMASN-TASB-LOCK-X` char(1) DEFAULT NULL,
-  `HPMASN-WA-FACTOR` decimal(17,2) DEFAULT NULL,
-  `HPMASN-SEC-PER-DAY` bigint(20) DEFAULT NULL,
-  `HPMASN-SEC-PER-DATE` int(11) DEFAULT NULL,
-  `HPMASN-FTE-CALC` decimal(25,10) DEFAULT NULL,
-  `HPMASN-HRS-PER-DAY-DEC` decimal(20,8) DEFAULT NULL,
-  `HPMASN-DISPLAY-IN-TT` char(1) DEFAULT NULL,
-  `HPMPLN-DESC` varchar(60) DEFAULT NULL,
-  `LAST-NAME` varchar(60) DEFAULT NULL,
-  `MIDDLE-NAME` varchar(30) DEFAULT NULL,
-  `FIRST-NAME` varchar(30) DEFAULT NULL,
-  `HAADSC-DESC-JOB-TYPE` varchar(60) DEFAULT NULL,
-  `HAAMXM-DESC` varchar(60) DEFAULT NULL,
-  `HAAPLC-DESC` varchar(36) DEFAULT NULL,
-  `HAACAM-DESC` varchar(60) DEFAULT NULL,
-  `HAABLD-BLD-DESC` varchar(30) DEFAULT NULL,
-  `HAADSC-DESC-GRADE-TO` varchar(60) DEFAULT NULL,
-  `HAADSC-DESC-GRADE-FROM` varchar(60) DEFAULT NULL,
-  `HAADSC-DESC-GRP` varchar(60) DEFAULT NULL,
-  `HAADSC-DESC-DPT` varchar(60) DEFAULT NULL,
-  `HAADSC-DESC-ASN` varchar(60) DEFAULT NULL,
-  `HAADSC-DESC-POS` varchar(60) DEFAULT NULL,
-  `HPMASN-CREDITS` decimal(20,2) DEFAULT NULL,
-  `HPMASN-STEP` double DEFAULT NULL,
-  `HPMASN-LANE` varchar(16) DEFAULT NULL,
-  `HPMASN-VACANT-POS` varchar(16) DEFAULT NULL,
-  `HPMPCG-CODE` varchar(16) DEFAULT NULL,
-  `SIF-HPMASN-REF-ID` varchar(38) DEFAULT NULL,
-  `OVERTIME-PAY-CODE` varchar(16) DEFAULT NULL,
-  `HPMASN-OT-FACTOR` decimal(17,2) DEFAULT NULL,
-  `HOURLY-PAY-CODE` varchar(16) DEFAULT NULL,
-  `DAILY-PAY-CODE` varchar(16) DEFAULT NULL,
-  `HPETER-TERM-CODE` varchar(10) DEFAULT NULL,
-  `HPMASN-TOTAL-MIN` int(11) DEFAULT NULL,
-  `HPMASN-TOTAL-HRS` int(11) DEFAULT NULL,
-  `HPMASN-PRIMARY-X` char(1) DEFAULT NULL
+CREATE TABLE `homeroom` (
+  `ENTITY-ID` varchar(10) DEFAULT NULL,
+  `HOMEROOM-NUMBER` varchar(10) DEFAULT NULL,
+  `SCHOOL-ID` varchar(10) DEFAULT NULL,
+  `SUB-SCHOOL-NUMBER` varchar(6) DEFAULT NULL,
+  `HOMEROOM-TEACHER` int(11) DEFAULT NULL,
+  `BUILDING-ID` varchar(10) DEFAULT NULL,
+  `ROOM-NUMBER` varchar(10) DEFAULT NULL,
+  `SCHOOL-YEAR` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2133,7 +2207,9 @@ CREATE TABLE `student_entity` (
   `CONV-FIELD-2` varchar(16) DEFAULT NULL,
   `CONV-FIELD-1` varchar(16) DEFAULT NULL,
   `X-USE-MULTI-RANK` char(1) DEFAULT NULL,
-  `FAMILY-REPRESENTATIVE` varchar(4) DEFAULT NULL
+  `FAMILY-REPRESENTATIVE` varchar(4) DEFAULT NULL,
+  KEY `STUDENT-ID` (`STUDENT-ID`),
+  KEY `SCHOOL-ID` (`SCHOOL-ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2345,6 +2421,63 @@ CREATE TABLE `haapro_profile` (
   `HAAPRO-PRT-DEPOSIT-OPT` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Final view structure for view `v_edage_stu`
+--
+
+/*!50001 DROP TABLE IF EXISTS `v_edage_stu`*/;
+/*!50001 DROP VIEW IF EXISTS `v_edage_stu`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_edage_stu` AS (select distinct `stu`.`OTHER-ID` AS `student_id`,`n`.`FIRST-NAME` AS `first_name`,`n`.`MIDDLE-NAME` AS `middle_name`,`n`.`LAST-NAME` AS `last_name`,(12 - (`stu`.`GRAD-YR` - if((((month(curdate()) = 7) and (dayofmonth(curdate()) >= 1)) or (month(curdate()) >= 8)),(year(curdate()) + 1),year(curdate())))) AS `grade`,`en`.`ENTITY-ID` AS `school_id`,`n`.`PRIMARY-PHONE` AS `phone`,`n`.`BIRTHDATE` AS `birthdate`,'' AS `street`,`z`.`ZIP-CITY` AS `city`,`z`.`ZIP-STATE` AS `state`,`z`.`ZIP-CODE` AS `zip`,concat('S',`stu`.`OTHER-ID`) AS `username`,date_format(`n`.`BIRTHDATE`,'%b%e%Y') AS `password`,concat('S',`stu`.`OTHER-ID`,'@tukwila.wednet.edu') AS `email`,`n`.`GENDER` AS `gender`,'' AS `guardian_name`,`stu`.`MN-EDE-NBR` AS `state_id` from (((((`name` `n` join `student` `stu` on((`n`.`NAME-ID` = `stu`.`NAME-ID`))) left join `address` `a` on((`n`.`ADDRESS-ID` = `a`.`ADDRESS-ID`))) left join `zip` `z` on((`a`.`ZIP-CODE` = `z`.`ZIP-CODE`))) join `student_entity` `se` on(((`stu`.`STUDENT-ID` = `se`.`STUDENT-ID`) and (`se`.`STUDENT-STATUS` = 'A') and (`se`.`X-DEFAULT-ENTITY` = 'Y')))) join `entity` `en` on((`se`.`SCHOOL-ID` = `en`.`ENTITY-ID`)))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_edage_cou`
+--
+
+/*!50001 DROP TABLE IF EXISTS `v_edage_cou`*/;
+/*!50001 DROP VIEW IF EXISTS `v_edage_cou`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_edage_cou` AS (select distinct if(isnull(`cm`.`CLAS-SECTION`),concat(`c`.`COR-NUM-ID`,'-',`c`.`COR-ALPHAKEY`),concat(`c`.`COR-NUM-ID`,'-',`cm`.`CLAS-SECTION`,'-',`cm`.`DSP-PERIOD`)) AS `course_id`,`c`.`ENTITY-ID` AS `school_id`,`cm`.`DSP-PERIOD` AS `period`,`cm`.`CLAS-SECTION` AS `section`,`c`.`COR-ALPHAKEY` AS `course_code`,`c`.`COR-SDESC` AS `course_name`,`n`.`NALPHAKEY` AS `teacher_id` from ((`course` `c` left join `class_meet` `cm` on((`c`.`COR-NUM-ID` = `cm`.`COR-NUM-ID`))) left join `name` `n` on((`cm`.`NAME-ID` = `n`.`NAME-ID`))) where ((`c`.`SCHOOL-YEAR` = if((((month(curdate()) = 7) and (dayofmonth(curdate()) >= 1)) or (month(curdate()) >= 8)),(year(curdate()) + 1),year(curdate()))) and (`c`.`COR-STATUS` = 'A'))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `v_edage_enr`
+--
+
+/*!50001 DROP TABLE IF EXISTS `v_edage_enr`*/;
+/*!50001 DROP VIEW IF EXISTS `v_edage_enr`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `v_edage_enr` AS (select distinct concat(`stu`.`OTHER-ID`,'-',if(isnull(`cm`.`CLAS-SECTION`),concat(`crs`.`COR-NUM-ID`,'-',`crs`.`COR-ALPHAKEY`),concat(`crs`.`COR-NUM-ID`,'-',`cm`.`CLAS-SECTION`,'-',`cm`.`DSP-PERIOD`))) AS `enrollment_id`,if(isnull(`cm`.`CLAS-SECTION`),concat(`crs`.`COR-NUM-ID`,'-',`crs`.`COR-ALPHAKEY`),concat(`crs`.`COR-NUM-ID`,'-',`cm`.`CLAS-SECTION`,'-',`cm`.`DSP-PERIOD`)) AS `course_id`,`stu`.`OTHER-ID` AS `student_id` from (((`student_class` `sc` join `student` `stu` on((`sc`.`STUDENT-ID` = `stu`.`STUDENT-ID`))) join `class_meet` `cm` on(((`cm`.`COR-NUM-ID` = `sc`.`COR-NUM-ID`) and (`cm`.`TRACK` = `sc`.`TRACK`) and (`cm`.`CLAS-SECTION` = `sc`.`CLAS-SECTION`)))) join `course` `crs` on((`sc`.`COR-NUM-ID` = `crs`.`COR-NUM-ID`))) where ((`sc`.`SCHD-STATUS` = 'A') and (`sc`.`SCHOOL-YEAR` = if((((month(curdate()) = 7) and (dayofmonth(curdate()) >= 1)) or (month(curdate()) >= 8)),(year(curdate()) + 1),year(curdate()))))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -2355,4 +2488,4 @@ CREATE TABLE `haapro_profile` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-08-10 19:01:53
+-- Dump completed on 2012-08-14 21:51:50

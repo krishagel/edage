@@ -34,7 +34,7 @@ function send-accountReport
 	$conn = New-MySQLConnection -server $dbserver -user $dbuser -password $dbpass -database $log_db
 	
 	# Insert log record into the database
-	$results = Invoke-MySQLQuery "select * from acct_gen where mod_date between str_to_date(@time, '%m/%e/%Y %l:%i:%s %p') and NOW()" -parameters @{time=$time} -conn $conn
+	$results = Invoke-MySQLQuery "select * from acct_gen where mod_date between str_to_date(@time, '%m/%e/%Y %l:%i:%s %p') and NOW() ORDER BY mod_date" -parameters @{time=$time} -conn $conn
 
 	Foreach ($result in $results) {
 		$record_header = $result.header
