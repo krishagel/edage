@@ -17,14 +17,14 @@ function add-adGroup
 {
 	Param (
 	[string]$group,
-	[string]$ou,
+	[string]$container,
 	[string]$description
 	)
 	$error.Clear()
 	
 	try {
-		New-QADGroup -Name $group -ParentContainer $ou -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' > $result
-		write-dblog -header "Group Add Success" -message "Group addition was successful in: $ou." -account "$group"
+		New-QADGroup -Name $group -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' > $result
+		write-dblog -header "Group Add Success" -message "Group addition was successful in: $container." -account "$group"
 	} 
 	catch {
 		$errMsg = "Group addition error= $($error[0])"

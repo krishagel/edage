@@ -32,7 +32,7 @@ Param (
 [string]$class,
 [parameter(Mandatory = $true)]
 [string]$type,
-[string]$acct
+[string]$account
 )
 
 ##Load Script Libraries
@@ -51,8 +51,11 @@ switch($class) {
 	"staff" {
 		switch ($type) {
 			"add" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Staff Add" -message "Initialization" -account $acct
+					add-adAccount -account $account -container $tmpOU -password Mar91977 -displayName "Hagel, Kris J" -email hagelk@tukwila.wednet.edu -type staff -idnum HAGELKRI000 -lastName Hagel -firstName Kris -middleInitial J -initials KJH -title Consultant -phone 253.590.6433 -department Consulting -company Self-Employed -city Tacoma -state WA -zip 98446 -street "14511 50th Ave E" -homePhone 253.530.3703 -homeAddress "14511 50th Ave E, Tacoma, WA 98446" -homeDrive D: 
+					add-adGroup -group KrisTest -container $tmpOU
+					add-adGroupMember -group KrisTest -account $account
 					Write-Host "Adding a single staff member is not yet implemented"
 				} else {
 					write-dblog -header "Staff Add" -message "Initialization" -account "Global"
@@ -60,17 +63,19 @@ switch($class) {
 				}
 			}
 			"delete" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Staff Delete" -message "Initialization" -account $acct
-					Write-Host "Deleting a single staff member is not yet implemented"
+					remove-adAccount -account $account
+					remove-adGroup -group KrisTest
 				} else {
 					write-dblog -header "Staff Delete" -message "Initialization" -account "Global"
 					Write-Host "Deleting all necessary staff is not yet implemented"
 				}
 			}
 			"update" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Staff Update" -message "Initialization" -account $acct
+					remove-adGroupMember -group KrisTest -account $account
 					Write-Host "Updating a single staff member is not yet implemented"
 				} else {
 					write-dblog -header "Staff Update" -message "Initialization" -account "Global"
@@ -78,18 +83,19 @@ switch($class) {
 				}
 			}
 			"disable" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Staff Disable" -message "Initialization" -account $acct
-					Write-Host "Updating a single staff member is not yet implemented"
+					disable-adAccount -account $account -container $disabledUserOU
 				} else {
 					write-dblog -header "Staff Disable" -message "Initialization" -account $acct
 					Write-Host "Updating all necessary staff is not yet implemented."
 				}
 			}
 			"enable" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Staff Enable" -message "Initialization" -account $acct
-					Write-Host "Enabling a single student is not yet implemented"
+					enable-adAccount -account $account -container $tmpOU -description Testing
+					Write-Host "Enabling a single staff member is not yet implemented"
 				} else {
 					Write-Host "You must provide an account to enable a staff member."
 				}
@@ -100,7 +106,7 @@ switch($class) {
 	"student" {
 		switch ($type) {
 			"add" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Student Add" -message "Initialization" -account $acct
 					Write-Host "Adding a single student is not yet implemented"
 				} else {
@@ -109,16 +115,16 @@ switch($class) {
 				}
 			}
 			"delete" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Student Delete" -message "Initialization" -account $acct
-					Write-Host "Deleting a single student is not yet implemented"
+					remove-adAccount -account $account
 				} else {
 					write-dblog -header "Student Delete" -message "Initialization" -account "Global"
 					Write-Host "Deleting all necessary students is not yet implemented"
 				}
 			}
 			"update" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Student Update" -message "Initialization" -account $acct
 					Write-Host "Updating a single student is not yet implemented"
 				} else {
@@ -127,15 +133,15 @@ switch($class) {
 				}
 			}
 			"disable" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Student Disable" -message "Initialization" -account $acct
-					Write-Host "Updating a single student is not yet implemented"
+					disable-adAccount -account $account -container $disabledUserOU
 				} else {
 					Write-Host "You must provide an account to disable a student."
 				}
 			}
 			"enable" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Student Enable" -message "Initialization" -account $acct
 					Write-Host "Enabling a single student is not yet implemented"
 				} else {
@@ -148,7 +154,7 @@ switch($class) {
 	"contract" {
 		switch ($type) {
 			"add" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Contract Add" -message "Initialization" -account $acct
 					Write-Host "Adding a single contract person is not yet implemented"
 				} else {
@@ -156,15 +162,15 @@ switch($class) {
 				}
 			}
 			"delete" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Contract Delete" -message "Initialization" -account $acct
-					Write-Host "Deleting a single student is not yet implemented"
+					remove-adAccount -account $account
 				} else {
 					Write-Host "You must provide an account to delete a contract person."
 				}
 			}
 			"update" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Contract Update" -message "Initialization" -account $acct
 					Write-Host "Updating a single student is not yet implemented"
 				} else {
@@ -172,15 +178,15 @@ switch($class) {
 				}
 			}
 			"disable" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Contract Disable" -message "Initialization" -account $acct
-					Write-Host "Updating a single student is not yet implemented"
+					disable-adAccount -account $account -container $disabledUserOU
 				} else {
 					Write-Host "You must provide an account to disable a contract person."
 				}
 			}
 			"enable" {
-				if ($acct) {
+				if ($account) {
 					write-dblog -header "Contract Enable" -message "Initialization" -account $acct
 					Write-Host "Enabling a single student is not yet implemented"
 				} else {

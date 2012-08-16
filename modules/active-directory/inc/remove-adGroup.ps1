@@ -22,7 +22,7 @@ function remove-adGroup
 	
 	try {
 		Remove-QADObject $group -Force > $result
-		write-dblog -header "Group Remove Success" -message "Group removal was successful in: $ou." -account "$group"
+		write-dblog -header "Group Remove Success" -message "Group removal was successful." -account "$group"
 	} 
 	catch {
 		$errMsg = "Group removal error= $($error[0])"

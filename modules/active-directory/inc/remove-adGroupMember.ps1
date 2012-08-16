@@ -17,17 +17,17 @@ function remove-adGroupMember
 {
 	Param (
 	[string]$group,
-	[string]$user
+	[string]$account
 	)
 	$error.Clear()
 	
 	try {
-		Remove-QADGroupMember $group $user > $result
-		write-dblog -header "Group Remove Member Success" -message "Group member removal was successful in: $group." -account "$user"
+		Remove-QADGroupMember $group $account > $result
+		write-dblog -header "Group Remove Member Success" -message "Group member removal was successful in: $group." -account "$account"
 	} 
 	catch {
 		$errMsg = "Group member removal error for group: $group = $($error[0])"
 		$errMsg = $errMsg.replace("'","''")
-		write-dblog -header "Group Remove Member Error" -message $errMsg -account "$user"
+		write-dblog -header "Group Remove Member Error" -message $errMsg -account "$account"
 	}
 }

@@ -17,17 +17,17 @@ function add-adGroupMember
 {
 	Param (
 	[string]$group,
-	[string]$user
+	[string]$account
 	)
 	$error.Clear()
 	
 	try {
-		Add-QADGroupMember $group $user > $result
-		write-dblog -header "Group Add Member Success" -message "Group member addition was successful in: $group." -account "$user"
+		Add-QADGroupMember $group $account > $result
+		write-dblog -header "Group Add Member Success" -message "Group member addition was successful in: $group." -account "$account"
 	} 
 	catch {
 		$errMsg = "Group member addition error for group: $group = $($error[0])"
 		$errMsg = $errMsg.replace("'","''")
-		write-dblog -header "Group Add Member Error" -message $errMsg -account "$user"
+		write-dblog -header "Group Add Member Error" -message $errMsg -account "$account"
 	}
 }
