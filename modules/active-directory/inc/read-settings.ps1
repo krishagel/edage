@@ -3,7 +3,7 @@
 .SYNOPSIS
 	Account Management Settings File
 .DESCRIPTION
-	File containing global settings for all account management scripts.  Things like logging, database server and any other settings.
+	File containing global settings for all account management scripts.  Things like logging, database server and any other settings requiring passwords are in the secure file.
 .NOTES
 	File Name	:	read-settings.ps1
 	Author		:	Kris Hagel - kris@krishagel.com
@@ -22,18 +22,5 @@ Import-Module mysqllib
 # Days since an account has been disabled before it is removed
 $disabled_days = 365
 
-# Mail Server Settings
-$mail_server = "smtp.gmail.com"
-$mail_port = "587"
-$mail_username = "krishagel"
-$mail_password = ""
-$mail_to = "kris@krishagel.com"
-$mail_from = "krishagel@gmail.com"
-
-# Database Settings
-$dbserver = "localhost"
-$dbuser = "khagel"
-$dbpass = "3wedCg12"
-$log_db = "edage_logs"
-$log_tbl = "acct_gen"
-$acct_data_db = "data_mart"
+# If you store secure settings outside project root, include it here.  By default this is unnecessary and you can just comment this out or remove it.
+. "Z:\edage-secure\read-secureSettings.ps1"
