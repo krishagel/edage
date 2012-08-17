@@ -10,11 +10,15 @@
 	Date		:	August 12, 2012
 .LINK
 	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+.EXAMPLE
+	add-adGroupMember -group groupName -account username
+
 	
 #>
 
 function add-adGroupMember
 {
+	[cmdletbinding(SupportsShouldProcess=$True)]
 	Param (
 	[string]$group,
 	[string]$account
@@ -22,7 +26,11 @@ function add-adGroupMember
 	$error.Clear()
 	
 	try {
-		Add-QADGroupMember $group $account > $result
+		if ($WhatIfPreference -eq $true) {
+			Add-QADGroupMember $group $account -WhatIf > $result
+		} else {
+			Add-QADGroupMember $group $account > $result
+		}
 		write-dblog -header "Group Add Member Success" -message "Group member addition was successful in: $group." -account "$account"
 	} 
 	catch {

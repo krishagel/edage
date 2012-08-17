@@ -11,11 +11,15 @@
 	Date		:	August 15, 2012
 .LINK
 	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+.EXAMPLE
+	add-adAccount -account doej -container 'domain/ou/Students' -password SecretPassword -displayName "Doe, John C" -email doej@schooldomain -type staff -idnum "DOE  JOH000" -lastName Doe -firstName John -middleInitial C -initials JCD -title Consultant -phone 253.555.1212 -department Consulting -company Self-Employed -city Tacoma -state WA -zip 98446 -street "1234 Park Lane" -homePhone 253.555.2121 -homeAddress "1234 Park Lane, Tacoma, WA 98446" -homeDrive D: 
+
 	
 #>
 
 function add-adAccount
 {
+	[cmdletbinding(SupportsShouldProcess=$True)]
 	Param (
 	[parameter(Mandatory = $true)]
 	[string]$account,
@@ -44,14 +48,20 @@ function add-adAccount
 	[string]$homeDrive,
 	[string]$homeDirectory,
 	[string]$scriptPath,
-	[string]$profilePath	
+	[string]$profilePath
 	)
 	$error.Clear()
-	
+		
 	try {
-		New-QADUser -Name $account -ParentContainer $container -UserPassword $password -SamAccountName $account -Email $email -ObjectAttributes @{employeeType=$type;employeeID=$idnum;middleName=$middleInitial;homePostalAddress=$homeAddress} -DisplayName $displayName -LastName $lastName -FirstName $firstName -Initials $initials -Title $title -PhoneNumber $phone -Department $department -Company $company -City $city -StateOrProvince $state -PostalCode $zip -StreetAddress $street -HomePhone $homePhone -HomeDrive $homeDrive -HomeDirectory $homeDirectory -ProfilePath $profilePath -LogonScript $scriptPath -UserPrincipalName $account -Description $title -ErrorAction SilentlyContinue
-		Rename-QADObject $account -NewName $displayName
-		write-dblog -header "Acct Creation Success" -message "Creation of account was successful for account: $account." -account "$account"
+		if ($WhatIfPreference -eq $true) {
+			New-QADUser -Name $account -ParentContainer $container -UserPassword $password -SamAccountName $account -Email $email -ObjectAttributes @{employeeType=$type;employeeID=$idnum;middleName=$middleInitial;homePostalAddress=$homeAddress} -DisplayName $displayName -LastName $lastName -FirstName $firstName -Initials $initials -Title $title -PhoneNumber $phone -Department $department -Company $company -City $city -StateOrProvince $state -PostalCode $zip -StreetAddress $street -HomePhone $homePhone -HomeDrive $homeDrive -HomeDirectory $homeDirectory -ProfilePath $profilePath -LogonScript $scriptPath -UserPrincipalName $account -Description $title -ErrorAction SilentlyContinue -WhatIf
+			Rename-QADObject $account -NewName $displayName -WhatIf
+			write-dblog -header "Acct Creation Success" -message "Creation of account was successful for account: $account." -account "$account"
+		} else {
+			New-QADUser -Name $account -ParentContainer $container -UserPassword $password -SamAccountName $account -Email $email -ObjectAttributes @{employeeType=$type;employeeID=$idnum;middleName=$middleInitial;homePostalAddress=$homeAddress} -DisplayName $displayName -LastName $lastName -FirstName $firstName -Initials $initials -Title $title -PhoneNumber $phone -Department $department -Company $company -City $city -StateOrProvince $state -PostalCode $zip -StreetAddress $street -HomePhone $homePhone -HomeDrive $homeDrive -HomeDirectory $homeDirectory -ProfilePath $profilePath -LogonScript $scriptPath -UserPrincipalName $account -Description $title -ErrorAction SilentlyContinue
+			Rename-QADObject $account -NewName $displayName		
+			write-dblog -header "Acct Creation Success" -message "Creation of account was successful for account: $account." -account "$account"
+		}
 	} 
 	catch {
 		$errMsg = "Account creation error= $($error[0])"

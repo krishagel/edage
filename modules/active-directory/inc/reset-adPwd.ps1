@@ -11,11 +11,14 @@
 	Date		:	August 15, 2012
 .LINK
 	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+.EXAMPLE
+	reset-adPwd -user username -password newSecretPassword
 	
 #>
 
 function reset-adPwd
 {
+	[cmdletbinding(SupportsShouldProcess=$True)]
 	Param (
 	[string]$user,
 	[string]$password
@@ -23,7 +26,11 @@ function reset-adPwd
 	$error.Clear()
 	
 	try {
-		Set-QADUser $user -UserPassword $password
+		if ($WhatIfPreference -eq $true) {
+			Set-QADUser $user -UserPassword $password -WhatIf
+		} else {
+			Set-QADUser $user -UserPassword $password		
+		}
 		write-dblog -header "Pwd Reset Success" -message "Password Reset was successful for user: $user." -account "$user"
 	} 
 	catch {

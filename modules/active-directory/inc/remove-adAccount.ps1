@@ -11,18 +11,26 @@
 	Date		:	August 15, 2012
 .LINK
 	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+.EXAMPLE
+	remove-adAccount -account username
+
 	
 #>
 
 function remove-adAccount
 {
+	[cmdletbinding(SupportsShouldProcess=$True)]
 	Param (
 	[string]$account
 	)
 	$error.Clear()
 	
 	try {
-		Remove-QADObject $account -Force
+		if ($WhatIfPreference -eq $true) {
+			Remove-QADObject $account -Force -WhatIf
+		} else {
+			Remove-QADObject $account -Force
+		}
 		write-dblog -header "Acct Removal Success" -message "Account Removal was successful for user: $account." -account "$account"
 	} 
 	catch {

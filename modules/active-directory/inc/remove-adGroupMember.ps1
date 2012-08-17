@@ -10,11 +10,14 @@
 	Date		:	August 12, 2012
 .LINK
 	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+.EXAMPLE
+	remove-adGroupMember -group groupName -account username
 	
 #>
 
 function remove-adGroupMember
 {
+	[cmdletbinding(SupportsShouldProcess=$True)]
 	Param (
 	[string]$group,
 	[string]$account
@@ -22,7 +25,11 @@ function remove-adGroupMember
 	$error.Clear()
 	
 	try {
-		Remove-QADGroupMember $group $account > $result
+		if ($WhatIfPreference -eq $true) {
+			Remove-QADGroupMember $group $account -WhatIf > $result
+		} else {
+			Remove-QADGroupMember $group $account > $result		
+		}
 		write-dblog -header "Group Remove Member Success" -message "Group member removal was successful in: $group." -account "$account"
 	} 
 	catch {

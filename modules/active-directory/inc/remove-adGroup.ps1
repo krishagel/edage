@@ -10,18 +10,25 @@
 	Date		:	August 12, 2012
 .LINK
 	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+.EXAMPLE
+	remove-adGroup -group groupName
 	
 #>
 
 function remove-adGroup
 {
+	[cmdletbinding(SupportsShouldProcess=$True)]
 	Param (
 	[string]$group
 	)
 	$error.Clear()
 	
 	try {
-		Remove-QADObject $group -Force > $result
+		if ($WhatIfPreference -eq $true) {
+			Remove-QADObject $group -Force -WhatIf > $result
+		} else {
+			Remove-QADObject $group -Force > $result
+		}
 		write-dblog -header "Group Remove Success" -message "Group removal was successful." -account "$group"
 	} 
 	catch {

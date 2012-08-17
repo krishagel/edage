@@ -12,11 +12,15 @@
 	Date		:	August 15, 2012
 .LINK
 	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+.EXAMPLE
+	disable-adAccount -account username -container 'domain/ou/inactivesContainer'
+
 	
 #>
 
 function disable-adAccount
 {
+	[cmdletbinding(SupportsShouldProcess=$True)]
 	Param (
 	[string]$account,
 	[string]$container
@@ -24,10 +28,16 @@ function disable-adAccount
 	$error.Clear()
 	
 	try {
-		Move-QADObject -Identity $account -NewParentContainer $container
 		$expireDate = [datetime]::Now.AddDays(180)
-		Set-QADUser -Identity $account -Description $expireDate -AccountExpires $expireDate
-		Disable-QADUser -Identity $account
+		if ($WhatIfPreference -eq $true) {
+			Move-QADObject -Identity $account -NewParentContainer $container -WhatIf
+			Set-QADUser -Identity $account -Description $expireDate -AccountExpires $expireDate -WhatIf
+			Disable-QADUser -Identity $account -WhatIf
+		} else {
+			Move-QADObject -Identity $account -NewParentContainer $container
+			Set-QADUser -Identity $account -Description $expireDate -AccountExpires $expireDate
+			Disable-QADUser -Identity $account
+		}
 		write-dblog -header "Acct Disable Success" -message "Disabling Account was successful for user: $account." -account "$account"
 	} 
 	catch {

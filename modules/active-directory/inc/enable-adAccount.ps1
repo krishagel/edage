@@ -12,11 +12,15 @@
 	Date		:	August 15, 2012
 .LINK
 	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+.EXAMPLE
+	enable-adAccount -account username -container 'domain/ou/container' -description 'Usually Title Of Account'
+
 	
 #>
 
 function enable-adAccount
 {
+	[cmdletbinding(SupportsShouldProcess=$True)]
 	Param (
 	[string]$account,
 	[string]$container,
@@ -25,9 +29,15 @@ function enable-adAccount
 	$error.Clear()
 	
 	try {
-		Enable-QADUser -Identity $account
-		Set-QADUser -Identity $account -Description $description -AccountExpires $null
-		Move-QADObject -Identity $account -NewParentContainer $container
+		if ($WhatIfPreference -eq $true) {
+			Enable-QADUser -Identity $account -WhatIf
+			Set-QADUser -Identity $account -Description $description -AccountExpires $null -WhatIf
+			Move-QADObject -Identity $account -NewParentContainer $container -WhatIf
+		} else {
+			Enable-QADUser -Identity $account
+			Set-QADUser -Identity $account -Description $description -AccountExpires $null
+			Move-QADObject -Identity $account -NewParentContainer $container
+		}
 		write-dblog -header "Acct Enable Success" -message "Enabling Account was successful for user: $account." -account "$account"
 	} 
 	catch {

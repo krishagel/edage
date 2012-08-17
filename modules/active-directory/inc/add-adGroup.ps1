@@ -10,11 +10,15 @@
 	Date		:	August 12, 2012
 .LINK
 	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+.EXAMPLE
+	add-adGroup -group newGroupName -container 'domain/ou/Students'
+
 	
 #>
 
 function add-adGroup
 {
+	[cmdletbinding(SupportsShouldProcess=$True)]
 	Param (
 	[string]$group,
 	[string]$container,
@@ -23,7 +27,11 @@ function add-adGroup
 	$error.Clear()
 	
 	try {
-		New-QADGroup -Name $group -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' > $result
+		if ($WhatIfPreference -eq $true) {
+			New-QADGroup -Name $group -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' -WhatIf > $result
+		} else {
+			New-QADGroup -Name $group -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' > $result
+		}
 		write-dblog -header "Group Add Success" -message "Group addition was successful in: $container." -account "$group"
 	} 
 	catch {

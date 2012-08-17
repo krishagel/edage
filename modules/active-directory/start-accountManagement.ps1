@@ -53,9 +53,6 @@ switch($class) {
 			"add" {
 				if ($account) {
 					write-dblog -header "Staff Add" -message "Initialization" -account $acct
-					add-adAccount -account $account -container $tmpOU -password Mar91977 -displayName "Hagel, Kris J" -email hagelk@tukwila.wednet.edu -type staff -idnum HAGELKRI000 -lastName Hagel -firstName Kris -middleInitial J -initials KJH -title Consultant -phone 253.590.6433 -department Consulting -company Self-Employed -city Tacoma -state WA -zip 98446 -street "14511 50th Ave E" -homePhone 253.530.3703 -homeAddress "14511 50th Ave E, Tacoma, WA 98446" -homeDrive D: 
-					add-adGroup -group KrisTest -container $tmpOU
-					add-adGroupMember -group KrisTest -account $account
 					Write-Host "Adding a single staff member is not yet implemented"
 				} else {
 					write-dblog -header "Staff Add" -message "Initialization" -account "Global"
@@ -66,7 +63,6 @@ switch($class) {
 				if ($account) {
 					write-dblog -header "Staff Delete" -message "Initialization" -account $acct
 					remove-adAccount -account $account
-					remove-adGroup -group KrisTest
 				} else {
 					write-dblog -header "Staff Delete" -message "Initialization" -account "Global"
 					Write-Host "Deleting all necessary staff is not yet implemented"
@@ -75,7 +71,6 @@ switch($class) {
 			"update" {
 				if ($account) {
 					write-dblog -header "Staff Update" -message "Initialization" -account $acct
-					remove-adGroupMember -group KrisTest -account $account
 					Write-Host "Updating a single staff member is not yet implemented"
 				} else {
 					write-dblog -header "Staff Update" -message "Initialization" -account "Global"
@@ -94,7 +89,6 @@ switch($class) {
 			"enable" {
 				if ($account) {
 					write-dblog -header "Staff Enable" -message "Initialization" -account $acct
-					enable-adAccount -account $account -container $tmpOU -description Testing
 					Write-Host "Enabling a single staff member is not yet implemented"
 				} else {
 					Write-Host "You must provide an account to enable a staff member."
@@ -108,10 +102,10 @@ switch($class) {
 			"add" {
 				if ($account) {
 					write-dblog -header "Student Add" -message "Initialization" -account $acct
-					Write-Host "Adding a single student is not yet implemented"
+					add-usersFromDB -account $account -WhatIf
 				} else {
 					write-dblog -header "Student Add" -message "Initialization" -account "Global"
-					Write-Host "Adding all necessary students is not yet implemented"
+					add-usersFromDB -account 'global' -WhatIf
 				}
 			}
 			"delete" {

@@ -1,0 +1,16 @@
+select v.username account, v.school_id container, v.password password, 
+CONCAT(IFNULL(v.last_name,''),', ',IFNULL(v.first_name,''),' ',LEFT(v.middle_name,1)) displayName,
+CONCAT(v.username,'@',(SELECT c.value FROM lu_config c WHERE c.key = 'stu_email_domain')) email, 
+'student' type, v.student_id idnum, v.grade grade, v.last_name lastName,
+v.first_name firstName, LEFT(v.middle_name,1) middleInitial, 
+CONCAT(LEFT(v.first_name,1),LEFT(v.middle_name,1),LEFT(v.last_name,1)) initials,
+CONCAT('Grade ',v.grade,' Student') title,
+(SELECT s.phone FROM lu_schools s WHERE s.school_id = v.school_id) phone,
+(SELECT s.name FROM lu_schools s WHERE s.school_id = v.school_id) department,
+(SELECT c.value FROM lu_config c WHERE c.key = 'district_name') company,
+(SELECT s.city FROM lu_schools s WHERE s.school_id = v.school_id) city,
+(SELECT s.state FROM lu_schools s WHERE s.school_id = v.school_id) state,
+(SELECT s.zip FROM lu_schools s WHERE s.school_id = v.school_id) zip,
+(SELECT s.street FROM lu_schools s WHERE s.school_id = v.school_id) street,
+v.phone homePhone, CONCAT(IFNULL(v.street,''),', ',IFNULL(v.city,''),', ',IFNULL(v.state,''),' ',IFNULL(v.zip,'')) homeAddress
+from v_stu_d_add v

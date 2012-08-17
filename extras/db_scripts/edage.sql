@@ -52,32 +52,17 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `v_cur_stu`
+-- Temporary table structure for view `v_curr_enr`
 --
 
-DROP TABLE IF EXISTS `v_cur_stu`;
-/*!50001 DROP VIEW IF EXISTS `v_cur_stu`*/;
+DROP TABLE IF EXISTS `v_curr_enr`;
+/*!50001 DROP VIEW IF EXISTS `v_curr_enr`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `v_cur_stu` (
-  `student_id` varchar(12),
-  `first_name` varchar(50),
-  `middle_name` varchar(30),
-  `last_name` varchar(75),
-  `grade` char(4),
-  `school_id` varchar(12),
-  `phone` varchar(20),
-  `birthdate` date,
-  `street` varchar(75),
-  `city` varchar(50),
-  `state` char(2),
-  `zip` varchar(10),
-  `username` varchar(20),
-  `password` varchar(100),
-  `email` varchar(100),
-  `gender` char(1),
-  `guardian_name` varchar(100),
-  `state_id` varchar(20)
+/*!50001 CREATE TABLE `v_curr_enr` (
+  `enrollment_id` varchar(32),
+  `course_id` varchar(18),
+  `student_id` varchar(12)
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -97,35 +82,6 @@ SET character_set_client = utf8;
   `course_code` varchar(10),
   `course_name` varchar(75),
   `teacher_id` varchar(12)
-) ENGINE=MyISAM */;
-SET character_set_client = @saved_cs_client;
-
---
--- Temporary table structure for view `v_cur_stf`
---
-
-DROP TABLE IF EXISTS `v_cur_stf`;
-/*!50001 DROP VIEW IF EXISTS `v_cur_stf`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE TABLE `v_cur_stf` (
-  `staff_id` varchar(12),
-  `first_name` varchar(50),
-  `middle_name` varchar(30),
-  `last_name` varchar(75),
-  `job_title` varchar(30),
-  `school_id` varchar(12),
-  `birthdate` date,
-  `phone` varchar(20),
-  `street` varchar(75),
-  `city` varchar(50),
-  `state` char(2),
-  `zip` varchar(10),
-  `username` varchar(20),
-  `password` varchar(100),
-  `email` varchar(100),
-  `gender` char(1),
-  `certnumber` varchar(15)
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -160,21 +116,6 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `v_curr_enr`
---
-
-DROP TABLE IF EXISTS `v_curr_enr`;
-/*!50001 DROP VIEW IF EXISTS `v_curr_enr`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE TABLE `v_curr_enr` (
-  `enrollment_id` varchar(32),
-  `course_id` varchar(18),
-  `student_id` varchar(12)
-) ENGINE=MyISAM */;
-SET character_set_client = @saved_cs_client;
-
---
 -- Temporary table structure for view `v_cou_m_rem`
 --
 
@@ -192,25 +133,6 @@ SET character_set_client = utf8;
   `teacher_id` varchar(12)
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
-
---
--- Table structure for table `cou_d2`
---
-
-DROP TABLE IF EXISTS `cou_d2`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cou_d2` (
-  `course_id` varchar(18) NOT NULL DEFAULT '',
-  `school_id` varchar(12) NOT NULL DEFAULT '',
-  `period` varchar(8) DEFAULT '',
-  `section` varchar(5) NOT NULL DEFAULT '',
-  `course_code` varchar(10) NOT NULL DEFAULT '',
-  `course_name` varchar(75) NOT NULL DEFAULT '',
-  `teacher_id` varchar(12) DEFAULT '',
-  PRIMARY KEY (`course_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Temporary table structure for view `v_stu_m_add`
@@ -770,23 +692,23 @@ CREATE TABLE `cou_d1` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Temporary table structure for view `v_cur_cou`
+-- Table structure for table `cou_d2`
 --
 
-DROP TABLE IF EXISTS `v_cur_cou`;
-/*!50001 DROP VIEW IF EXISTS `v_cur_cou`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE TABLE `v_cur_cou` (
-  `course_id` varchar(18),
-  `school_id` varchar(12),
-  `period` varchar(8),
-  `section` varchar(5),
-  `course_code` varchar(10),
-  `course_name` varchar(75),
-  `teacher_id` varchar(12)
-) ENGINE=MyISAM */;
-SET character_set_client = @saved_cs_client;
+DROP TABLE IF EXISTS `cou_d2`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cou_d2` (
+  `course_id` varchar(18) NOT NULL DEFAULT '',
+  `school_id` varchar(12) NOT NULL DEFAULT '',
+  `period` varchar(8) DEFAULT '',
+  `section` varchar(5) NOT NULL DEFAULT '',
+  `course_code` varchar(10) NOT NULL DEFAULT '',
+  `course_name` varchar(75) NOT NULL DEFAULT '',
+  `teacher_id` varchar(12) DEFAULT '',
+  PRIMARY KEY (`course_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `cou_d3`
@@ -980,21 +902,6 @@ CREATE TABLE `cou_m` (
   PRIMARY KEY (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Temporary table structure for view `v_cur_enr`
---
-
-DROP TABLE IF EXISTS `v_cur_enr`;
-/*!50001 DROP VIEW IF EXISTS `v_cur_enr`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE TABLE `v_cur_enr` (
-  `enrollment_id` varchar(32),
-  `course_id` varchar(18),
-  `student_id` varchar(12)
-) ENGINE=MyISAM */;
-SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `stu_w`
@@ -1644,11 +1551,11 @@ CREATE TABLE `enr_d1` (
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `v_cur_stu`
+-- Final view structure for view `v_curr_enr`
 --
 
-/*!50001 DROP TABLE IF EXISTS `v_cur_stu`*/;
-/*!50001 DROP VIEW IF EXISTS `v_cur_stu`*/;
+/*!50001 DROP TABLE IF EXISTS `v_curr_enr`*/;
+/*!50001 DROP VIEW IF EXISTS `v_curr_enr`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -1657,7 +1564,7 @@ CREATE TABLE `enr_d1` (
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_cur_stu` AS select `stu_d0`.`student_id` AS `student_id`,`stu_d0`.`first_name` AS `first_name`,`stu_d0`.`middle_name` AS `middle_name`,`stu_d0`.`last_name` AS `last_name`,`stu_d0`.`grade` AS `grade`,`stu_d0`.`school_id` AS `school_id`,`stu_d0`.`phone` AS `phone`,`stu_d0`.`birthdate` AS `birthdate`,`stu_d0`.`street` AS `street`,`stu_d0`.`city` AS `city`,`stu_d0`.`state` AS `state`,`stu_d0`.`zip` AS `zip`,`stu_d0`.`username` AS `username`,`stu_d0`.`password` AS `password`,`stu_d0`.`email` AS `email`,`stu_d0`.`gender` AS `gender`,`stu_d0`.`guardian_name` AS `guardian_name`,`stu_d0`.`state_id` AS `state_id` from `stu_d0` */;
+/*!50001 VIEW `v_curr_enr` AS select `enr_d5`.`enrollment_id` AS `enrollment_id`,`enr_d5`.`course_id` AS `course_id`,`enr_d5`.`student_id` AS `student_id` from `enr_d5` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1682,25 +1589,6 @@ CREATE TABLE `enr_d1` (
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `v_cur_stf`
---
-
-/*!50001 DROP TABLE IF EXISTS `v_cur_stf`*/;
-/*!50001 DROP VIEW IF EXISTS `v_cur_stf`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_cur_stf` AS select `stf_d0`.`staff_id` AS `staff_id`,`stf_d0`.`first_name` AS `first_name`,`stf_d0`.`middle_name` AS `middle_name`,`stf_d0`.`last_name` AS `last_name`,`stf_d0`.`job_title` AS `job_title`,`stf_d0`.`school_id` AS `school_id`,`stf_d0`.`birthdate` AS `birthdate`,`stf_d0`.`phone` AS `phone`,`stf_d0`.`street` AS `street`,`stf_d0`.`city` AS `city`,`stf_d0`.`state` AS `state`,`stf_d0`.`zip` AS `zip`,`stf_d0`.`username` AS `username`,`stf_d0`.`password` AS `password`,`stf_d0`.`email` AS `email`,`stf_d0`.`gender` AS `gender`,`stf_d0`.`certnumber` AS `certnumber` from `stf_d0` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
 -- Final view structure for view `v_stu_d_add`
 --
 
@@ -1715,25 +1603,6 @@ CREATE TABLE `enr_d1` (
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_stu_d_add` AS select `d0`.`student_id` AS `student_id`,`d0`.`first_name` AS `first_name`,`d0`.`middle_name` AS `middle_name`,`d0`.`last_name` AS `last_name`,`d0`.`grade` AS `grade`,`d0`.`school_id` AS `school_id`,`d0`.`phone` AS `phone`,`d0`.`birthdate` AS `birthdate`,`d0`.`street` AS `street`,`d0`.`city` AS `city`,`d0`.`state` AS `state`,`d0`.`zip` AS `zip`,`d0`.`username` AS `username`,`d0`.`password` AS `password`,`d0`.`email` AS `email`,`d0`.`gender` AS `gender`,`d0`.`guardian_name` AS `guardian_name`,`d0`.`state_id` AS `state_id` from (`stu_d0` `d0` left join `stu_d1` `d1` on((`d0`.`student_id` = `d1`.`student_id`))) where isnull(`d1`.`student_id`) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `v_curr_enr`
---
-
-/*!50001 DROP TABLE IF EXISTS `v_curr_enr`*/;
-/*!50001 DROP VIEW IF EXISTS `v_curr_enr`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_curr_enr` AS select `enr_d3`.`enrollment_id` AS `enrollment_id`,`enr_d3`.`course_id` AS `course_id`,`enr_d3`.`student_id` AS `student_id` from `enr_d3` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1866,7 +1735,7 @@ CREATE TABLE `enr_d1` (
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_curr_stu` AS select `stu_d3`.`student_id` AS `student_id`,`stu_d3`.`first_name` AS `first_name`,`stu_d3`.`middle_name` AS `middle_name`,`stu_d3`.`last_name` AS `last_name`,`stu_d3`.`grade` AS `grade`,`stu_d3`.`school_id` AS `school_id`,`stu_d3`.`phone` AS `phone`,`stu_d3`.`birthdate` AS `birthdate`,`stu_d3`.`street` AS `street`,`stu_d3`.`city` AS `city`,`stu_d3`.`state` AS `state`,`stu_d3`.`zip` AS `zip`,`stu_d3`.`username` AS `username`,`stu_d3`.`password` AS `password`,`stu_d3`.`email` AS `email`,`stu_d3`.`gender` AS `gender`,`stu_d3`.`guardian_name` AS `guardian_name`,`stu_d3`.`state_id` AS `state_id` from `stu_d3` */;
+/*!50001 VIEW `v_curr_stu` AS select `stu_d5`.`student_id` AS `student_id`,`stu_d5`.`first_name` AS `first_name`,`stu_d5`.`middle_name` AS `middle_name`,`stu_d5`.`last_name` AS `last_name`,`stu_d5`.`grade` AS `grade`,`stu_d5`.`school_id` AS `school_id`,`stu_d5`.`phone` AS `phone`,`stu_d5`.`birthdate` AS `birthdate`,`stu_d5`.`street` AS `street`,`stu_d5`.`city` AS `city`,`stu_d5`.`state` AS `state`,`stu_d5`.`zip` AS `zip`,`stu_d5`.`username` AS `username`,`stu_d5`.`password` AS `password`,`stu_d5`.`email` AS `email`,`stu_d5`.`gender` AS `gender`,`stu_d5`.`guardian_name` AS `guardian_name`,`stu_d5`.`state_id` AS `state_id` from `stu_d5` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1961,26 +1830,7 @@ CREATE TABLE `enr_d1` (
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_curr_stf` AS select `stf_d3`.`staff_id` AS `staff_id`,`stf_d3`.`first_name` AS `first_name`,`stf_d3`.`middle_name` AS `middle_name`,`stf_d3`.`last_name` AS `last_name`,`stf_d3`.`job_title` AS `job_title`,`stf_d3`.`school_id` AS `school_id`,`stf_d3`.`birthdate` AS `birthdate`,`stf_d3`.`phone` AS `phone`,`stf_d3`.`street` AS `street`,`stf_d3`.`city` AS `city`,`stf_d3`.`state` AS `state`,`stf_d3`.`zip` AS `zip`,`stf_d3`.`username` AS `username`,`stf_d3`.`password` AS `password`,`stf_d3`.`email` AS `email`,`stf_d3`.`gender` AS `gender`,`stf_d3`.`certnumber` AS `certnumber` from `stf_d3` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
--- Final view structure for view `v_cur_cou`
---
-
-/*!50001 DROP TABLE IF EXISTS `v_cur_cou`*/;
-/*!50001 DROP VIEW IF EXISTS `v_cur_cou`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_cur_cou` AS select `cou_d0`.`course_id` AS `course_id`,`cou_d0`.`school_id` AS `school_id`,`cou_d0`.`period` AS `period`,`cou_d0`.`section` AS `section`,`cou_d0`.`course_code` AS `course_code`,`cou_d0`.`course_name` AS `course_name`,`cou_d0`.`teacher_id` AS `teacher_id` from `cou_d0` */;
+/*!50001 VIEW `v_curr_stf` AS select `stf_d5`.`staff_id` AS `staff_id`,`stf_d5`.`first_name` AS `first_name`,`stf_d5`.`middle_name` AS `middle_name`,`stf_d5`.`last_name` AS `last_name`,`stf_d5`.`job_title` AS `job_title`,`stf_d5`.`school_id` AS `school_id`,`stf_d5`.`birthdate` AS `birthdate`,`stf_d5`.`phone` AS `phone`,`stf_d5`.`street` AS `street`,`stf_d5`.`city` AS `city`,`stf_d5`.`state` AS `state`,`stf_d5`.`zip` AS `zip`,`stf_d5`.`username` AS `username`,`stf_d5`.`password` AS `password`,`stf_d5`.`email` AS `email`,`stf_d5`.`gender` AS `gender`,`stf_d5`.`certnumber` AS `certnumber` from `stf_d5` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -2081,25 +1931,6 @@ CREATE TABLE `enr_d1` (
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `v_cur_enr`
---
-
-/*!50001 DROP TABLE IF EXISTS `v_cur_enr`*/;
-/*!50001 DROP VIEW IF EXISTS `v_cur_enr`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_cur_enr` AS select `enr_d0`.`enrollment_id` AS `enrollment_id`,`enr_d0`.`course_id` AS `course_id`,`enr_d0`.`student_id` AS `student_id` from `enr_d0` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
 -- Final view structure for view `v_enr_m_rem`
 --
 
@@ -2189,7 +2020,7 @@ CREATE TABLE `enr_d1` (
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_curr_cou` AS select `cou_d3`.`course_id` AS `course_id`,`cou_d3`.`school_id` AS `school_id`,`cou_d3`.`period` AS `period`,`cou_d3`.`section` AS `section`,`cou_d3`.`course_code` AS `course_code`,`cou_d3`.`course_name` AS `course_name`,`cou_d3`.`teacher_id` AS `teacher_id` from `cou_d3` */;
+/*!50001 VIEW `v_curr_cou` AS select `cou_d5`.`course_id` AS `course_id`,`cou_d5`.`school_id` AS `school_id`,`cou_d5`.`period` AS `period`,`cou_d5`.`section` AS `section`,`cou_d5`.`course_code` AS `course_code`,`cou_d5`.`course_name` AS `course_name`,`cou_d5`.`teacher_id` AS `teacher_id` from `cou_d5` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -2222,4 +2053,4 @@ CREATE TABLE `enr_d1` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-08-14 21:46:42
+-- Dump completed on 2012-08-16 22:29:47

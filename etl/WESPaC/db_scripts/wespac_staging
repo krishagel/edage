@@ -627,7 +627,9 @@ CREATE TABLE `student_guardian` (
   `CHAR-FLD-2` varchar(32) DEFAULT NULL,
   `CHAR-FLD-1` varchar(32) DEFAULT NULL,
   `PICK-UP` char(1) DEFAULT NULL,
-  `CUST-PAR` char(1) DEFAULT NULL
+  `CUST-PAR` char(1) DEFAULT NULL,
+  KEY `STUDENT-ID` (`STUDENT-ID`),
+  KEY `NAME-ID` (`NAME-ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -926,9 +928,9 @@ SET character_set_client = utf8;
   `last_name` varchar(60),
   `grade` bigint(22),
   `school_id` varchar(10),
-  `phone` varchar(20),
-  `birthdate` datetime,
-  `street` char(0),
+  `phone` varchar(12),
+  `birthdate` varchar(10),
+  `street` varchar(86),
   `city` varchar(40),
   `state` varchar(4),
   `zip` varchar(12),
@@ -936,7 +938,7 @@ SET character_set_client = utf8;
   `password` varchar(38),
   `email` varchar(44),
   `gender` varchar(7),
-  `guardian_name` char(0),
+  `guardian_name` varchar(341),
   `state_id` bigint(20)
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
@@ -2132,7 +2134,8 @@ CREATE TABLE `student_family` (
   `RCV-REPORT-CARDS` char(1) DEFAULT NULL,
   `RCV-FORMS` char(1) DEFAULT NULL,
   `OBS-RELATIONSHIP-ID` varchar(10) DEFAULT NULL,
-  `X-FAM-SE-IN-FA` char(1) DEFAULT NULL
+  `X-FAM-SE-IN-FA` char(1) DEFAULT NULL,
+  KEY `STUDENT-ID` (`STUDENT-ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2436,7 +2439,7 @@ CREATE TABLE `haapro_profile` (
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `v_edage_stu` AS (select distinct `stu`.`OTHER-ID` AS `student_id`,`n`.`FIRST-NAME` AS `first_name`,`n`.`MIDDLE-NAME` AS `middle_name`,`n`.`LAST-NAME` AS `last_name`,(12 - (`stu`.`GRAD-YR` - if((((month(curdate()) = 7) and (dayofmonth(curdate()) >= 1)) or (month(curdate()) >= 8)),(year(curdate()) + 1),year(curdate())))) AS `grade`,`en`.`ENTITY-ID` AS `school_id`,`n`.`PRIMARY-PHONE` AS `phone`,`n`.`BIRTHDATE` AS `birthdate`,'' AS `street`,`z`.`ZIP-CITY` AS `city`,`z`.`ZIP-STATE` AS `state`,`z`.`ZIP-CODE` AS `zip`,concat('S',`stu`.`OTHER-ID`) AS `username`,date_format(`n`.`BIRTHDATE`,'%b%e%Y') AS `password`,concat('S',`stu`.`OTHER-ID`,'@tukwila.wednet.edu') AS `email`,`n`.`GENDER` AS `gender`,'' AS `guardian_name`,`stu`.`MN-EDE-NBR` AS `state_id` from (((((`name` `n` join `student` `stu` on((`n`.`NAME-ID` = `stu`.`NAME-ID`))) left join `address` `a` on((`n`.`ADDRESS-ID` = `a`.`ADDRESS-ID`))) left join `zip` `z` on((`a`.`ZIP-CODE` = `z`.`ZIP-CODE`))) join `student_entity` `se` on(((`stu`.`STUDENT-ID` = `se`.`STUDENT-ID`) and (`se`.`STUDENT-STATUS` = 'A') and (`se`.`X-DEFAULT-ENTITY` = 'Y')))) join `entity` `en` on((`se`.`SCHOOL-ID` = `en`.`ENTITY-ID`)))) */;
+/*!50001 VIEW `v_edage_stu` AS (select distinct `stu`.`OTHER-ID` AS `student_id`,`n`.`FIRST-NAME` AS `first_name`,`n`.`MIDDLE-NAME` AS `middle_name`,`n`.`LAST-NAME` AS `last_name`,(12 - (`stu`.`GRAD-YR` - if((((month(curdate()) = 7) and (dayofmonth(curdate()) >= 1)) or (month(curdate()) >= 8)),(year(curdate()) + 1),year(curdate())))) AS `grade`,`en`.`ENTITY-ID` AS `school_id`,concat(left(`n`.`PRIMARY-PHONE`,3),'.',substr(`n`.`PRIMARY-PHONE`,4,3),'.',right(`n`.`PRIMARY-PHONE`,4)) AS `phone`,date_format(`n`.`BIRTHDATE`,'%Y-%m-%d') AS `birthdate`,concat(ltrim(ifnull(`a`.`STREET-NUMBER`,'')),' ',ifnull(rtrim(`a`.`STREET-NAME`),''),'   ',ifnull(ltrim(`a`.`STREET-APPT`),'')) AS `street`,`z`.`ZIP-CITY` AS `city`,`z`.`ZIP-STATE` AS `state`,`z`.`ZIP-CODE` AS `zip`,concat('S',`stu`.`OTHER-ID`) AS `username`,date_format(`n`.`BIRTHDATE`,'%b%e%Y') AS `password`,concat('S',`stu`.`OTHER-ID`,'@tukwila.wednet.edu') AS `email`,`n`.`GENDER` AS `gender`,(select group_concat(concat(ifnull(`gn`.`FIRST-NAME`,''),' ',ifnull(`gn`.`LAST-NAME`,'')) separator '/') from ((`student_guardian` `sg` left join `name` `gn` on((`sg`.`NAME-ID` = `gn`.`NAME-ID`))) join `student_family` `sf` on(((`sg`.`NAME-ID` = `sf`.`STUDENT-ID`) and (`sf`.`RCV-REPORT-CARDS` = 'Y')))) where (`sg`.`STUDENT-ID` = `stu`.`NAME-ID`) group by `sg`.`STUDENT-ID`) AS `guardian_name`,`stu`.`MN-EDE-NBR` AS `state_id` from (((((`student` `stu` join `name` `n` on((`n`.`NAME-ID` = `stu`.`NAME-ID`))) left join `address` `a` on((`n`.`ADDRESS-ID` = `a`.`ADDRESS-ID`))) left join `zip` `z` on((`a`.`ZIP-CODE` = `z`.`ZIP-CODE`))) left join `student_entity` `se` on(((`stu`.`STUDENT-ID` = `se`.`STUDENT-ID`) and (`se`.`STUDENT-STATUS` = 'A') and (`se`.`X-DEFAULT-ENTITY` = 'Y')))) join `entity` `en` on((`se`.`SCHOOL-ID` = `en`.`ENTITY-ID`)))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -2488,4 +2491,4 @@ CREATE TABLE `haapro_profile` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-08-14 21:51:50
+-- Dump completed on 2012-08-16 22:30:35

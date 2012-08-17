@@ -29,3 +29,20 @@ $disabled_days = 365
 
 $disabledUserOU = 'tsd.int/TSD/Inactive Accounts'
 $tmpOU = 'tsd.int/TSD/Students'
+
+# Active Directory School Mapping Function
+
+function stu_ad_home_map {
+	Param (
+		[string]$school_id
+	)
+	switch ($school_id) {
+		126 {$result = 'tsd.int/TSD/Students/Elementary/CAS'}
+		135 {$result = 'tsd.int/TSD/Students/Elementary/THO'}
+		188 {$result = 'tsd.int/TSD/Students/Elementary/TUK'}
+		264 {$result = 'tsd.int/TSD/Students/MiddleSchool'}
+		448 {$result = 'tsd.int/TSD/Students/HighSchool'}
+		default {$result = 'tsd.int/TSD/Students/OtherStudents'}
+	}
+	return $result
+}
