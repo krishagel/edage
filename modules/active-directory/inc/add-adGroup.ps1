@@ -11,7 +11,7 @@
 .LINK
 	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
 .EXAMPLE
-	add-adGroup -group newGroupName -container 'domain/ou/Students'
+	add-adGroup -group newGroupName -container 'domain/ou/Students' -description 'Full Name'
 
 	
 #>
@@ -28,9 +28,9 @@ function add-adGroup
 	
 	try {
 		if ($WhatIfPreference -eq $true) {
-			New-QADGroup -Name $group -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' -WhatIf > $result
+			New-QADGroup -Name $description -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' -WhatIf > $result
 		} else {
-			New-QADGroup -Name $group -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' > $result
+			New-QADGroup -Name $description -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' > $result
 		}
 		write-dblog -header "Group Add Success" -message "Group addition was successful in: $container." -account "$group"
 	} 

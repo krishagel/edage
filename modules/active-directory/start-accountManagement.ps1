@@ -17,10 +17,10 @@
 .PARAMETER acct
 	If a function needs a specific user account, pass it in with this parameter.
 .EXAMPLE
-	Z:\acct-management\start-accountManagement.ps1 -class staff -type add -acct HAGELKRI000
+	.\start-accountManagement.ps1 -class staff -type add -acct HAGELKRI000
 	Adds new staff account for an employee with the employee number: HAGELKRI000
 .EXAMPLE
-	Z:\acct-management\start-accountManagement.ps1 -class student -type update
+	.\start-accountManagement.ps1 -class student -type update
 	Updates all student accounts that have changes in the last day.  Will move containers and groups if necessary.
 
 #>
@@ -111,25 +111,25 @@ switch($class) {
 			"delete" {
 				if ($account) {
 					write-dblog -header "Student Delete" -message "Initialization" -account $acct
-					remove-adAccount -account $account
+					remove-adAccount -account $account -WhatIf
 				} else {
 					write-dblog -header "Student Delete" -message "Initialization" -account "Global"
-					Write-Host "Deleting all necessary students is not yet implemented"
+					remove-usersFromDB -WhatIf
 				}
 			}
 			"update" {
 				if ($account) {
 					write-dblog -header "Student Update" -message "Initialization" -account $acct
-					Write-Host "Updating a single student is not yet implemented"
+					update-usersFromDB -account $account -WhatIf
 				} else {
 					write-dblog -header "Student Update" -message "Initialization" -account "Global"
-					Write-Host "Updating all necessary students is not yet implemented"
+					update-usersFromDB -account "global" -WhatIf
 				}
 			}
 			"disable" {
 				if ($account) {
 					write-dblog -header "Student Disable" -message "Initialization" -account $acct
-					disable-adAccount -account $account -container $disabledUserOU
+					disable-adAccount -account $account -container $disabledUserOU -WhatIf
 				} else {
 					Write-Host "You must provide an account to disable a student."
 				}
@@ -137,7 +137,8 @@ switch($class) {
 			"enable" {
 				if ($account) {
 					write-dblog -header "Student Enable" -message "Initialization" -account $acct
-					Write-Host "Enabling a single student is not yet implemented"
+					enable-adAccount -account username -container $disabledUserOU -description 'Temporarily Re-Enabled Acccount'
+					update-usersFromDB -account $account -WhatIf
 				} else {
 					Write-Host "You must provide an account to enable a student."
 				}
@@ -186,6 +187,31 @@ switch($class) {
 				} else {
 					Write-Host "You must provide an account to enable a contract person."
 				}
+			}
+			default {"'Type' is a required parameter"}
+		}
+	}
+	"global" {
+		switch ($type) {
+			"update-courses" {
+				write-dblog -header "Update Courses Daily" -message "Initialization" -account "Global"
+				add-coursesFromDB -scope "daily" -WhatIf
+			}
+			"update-enrollments" {
+				write-dblog -header "Update Enrollments Daily" -message "Initialization" -account "Global"
+				update-enrollmentsFromDB -scope "daily" -WhatIf
+			}
+			"add-allCourses" {
+				write-dblog -header "Add All Courses" -message "Initialization" -account "Global"
+				add-coursesFromDB -scope "global" -WhatIf
+			}
+			"add-allEnrollments" {
+				write-dblog -header "Add All Enrollments" -message "Initialization" -account "Global"
+				update-enrollmentsFromDB -scope "all" -WhatIf
+			}
+			"add-allStudents" {
+				write-dblog -header "Add All Students" -message "Initialization" -account "Global"
+				add-usersFromDB -account 'all' -WhatIf
 			}
 			default {"'Type' is a required parameter"}
 		}
