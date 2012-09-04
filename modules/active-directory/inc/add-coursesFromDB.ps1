@@ -46,7 +46,7 @@ from v_cou_d_add v"
 
 		Foreach ($result in $results) {
 			$container_base = stu_ad_home_map -school_id $result.school_id
-			$container = $container_base + '/Groups/CourseGroups'
+			$container = $container_base + $courseGroupContainer
 
 			if ($WhatIfPreference -eq $true) {
 				add-adGroup -group $result.group_short_name -container $container -description $result.group_name -WhatIf
@@ -58,7 +58,7 @@ from v_cou_d_add v"
 		# Query single record from the database
 		$result = Invoke-MySQLQuery $daily_sql -parameters @{account=$account} -conn $conn
 		$container_base = stu_ad_home_map -school_id $result.container
-		$container = $container_base + '/Groups/CourseGroups'
+		$container = $container_base + $courseGroupContainer
 
 		if ($WhatIfPreference -eq $true) {
 			add-adGroup -group $result.group_short_name -container $container -description $result.group_name -WhatIf

@@ -20,15 +20,18 @@ Add-PSSnapin Quest.ActiveRoles.ADManagement -ErrorAction SilentlyContinue
 Import-Module mysqllib
 
 # Days since an account has been disabled before it is removed
-$disabled_days = 365
+$disabled_days = 180
 
 # If you store secure settings outside project root, include it here.  By default this is unnecessary and you can just comment this out or remove it.
-. "Z:\edage-secure\read-secureSettings.ps1"
+. "E:\edage-secure\read-secureSettings.ps1"
 
 # Disabled User OU
 
-$disabledUserOU = 'tsd.int/TSD/Inactive Accounts'
-$tmpOU = 'tsd.int/TSD/Students'
+$disabledUserOU = 'peninsula.wednet.edu/Inactive Accounts'
+
+# Course Groups Sub-Container
+
+$courseGroupContainer = 'Groups/Course_Groups'
 
 # Active Directory School Mapping Function
 
