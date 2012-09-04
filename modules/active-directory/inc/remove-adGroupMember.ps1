@@ -26,9 +26,9 @@ function remove-adGroupMember
 	
 	try {
 		if ($WhatIfPreference -eq $true) {
-			Remove-QADGroupMember $group $account -WhatIf > $result
+			Remove-QADGroupMember $group $account -WhatIf 
 		} else {
-			Remove-QADGroupMember $group $account > $result		
+			Remove-QADGroupMember $group $account		
 		}
 		write-dblog -header "Group Remove Member Success" -message "Group member removal was successful in: $group." -account "$account"
 	} 

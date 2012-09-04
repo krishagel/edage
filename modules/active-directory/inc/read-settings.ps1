@@ -37,12 +37,26 @@ function stu_ad_home_map {
 		[string]$school_id
 	)
 	switch ($school_id) {
-		126 {$result = 'tsd.int/TSD/Students/Elementary/CAS'}
-		135 {$result = 'tsd.int/TSD/Students/Elementary/THO'}
-		188 {$result = 'tsd.int/TSD/Students/Elementary/TUK'}
-		264 {$result = 'tsd.int/TSD/Students/MiddleSchool'}
-		448 {$result = 'tsd.int/TSD/Students/HighSchool'}
+		126 {$result = 'tsd.int/TSD/Students/CAS'}
+		135 {$result = 'tsd.int/TSD/Students/THO'}
+		188 {$result = 'tsd.int/TSD/Students/TUK'}
+		264 {$result = 'tsd.int/TSD/Students/SHO'}
+		448 {$result = 'tsd.int/TSD/Students/FOS'}
 		default {$result = 'tsd.int/TSD/Students/OtherStudents'}
+	}
+	return $result
+}
+
+function stu_home_folder_map {
+	Param (
+		[string]$school_id
+	)
+	switch ($school_id) {
+		126 {$result = '\\tsd-data-p-5\HomeCAS'}
+		135 {$result = '\\tsd-data-p-5\HomeTHO'}
+		188 {$result = '\\tsd-data-p-5\HomeTUK'}
+		264 {$result = '\\tsd-data-6-12\HomeSHO'}
+		448 {$result = '\\tsd-data-6-12\HomeFOS'}
 	}
 	return $result
 }

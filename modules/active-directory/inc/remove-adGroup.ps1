@@ -25,9 +25,9 @@ function remove-adGroup
 	
 	try {
 		if ($WhatIfPreference -eq $true) {
-			Remove-QADObject $group -Force -WhatIf > $result
+			Remove-QADObject $group -Force -WhatIf
 		} else {
-			Remove-QADObject $group -Force > $result
+			Remove-QADObject $group -Force
 		}
 		write-dblog -header "Group Remove Success" -message "Group removal was successful." -account "$group"
 	} 

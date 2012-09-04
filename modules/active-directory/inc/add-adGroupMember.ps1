@@ -27,9 +27,9 @@ function add-adGroupMember
 	
 	try {
 		if ($WhatIfPreference -eq $true) {
-			Add-QADGroupMember $group $account -WhatIf > $result
+			Add-QADGroupMember $group $account -WhatIf 
 		} else {
-			Add-QADGroupMember $group $account > $result
+			Add-QADGroupMember $group $account 
 		}
 		write-dblog -header "Group Add Member Success" -message "Group member addition was successful in: $group." -account "$account"
 	} 

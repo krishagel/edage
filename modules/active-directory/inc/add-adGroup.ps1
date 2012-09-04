@@ -28,9 +28,9 @@ function add-adGroup
 	
 	try {
 		if ($WhatIfPreference -eq $true) {
-			New-QADGroup -Name $description -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' -WhatIf > $result
+			New-QADGroup -Name $description -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' -WhatIf 
 		} else {
-			New-QADGroup -Name $description -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' > $result
+			New-QADGroup -Name $description -ParentContainer $container -Description $description -samAccountName $group -grouptype 'Security' -groupscope 'Global' 
 		}
 		write-dblog -header "Group Add Success" -message "Group addition was successful in: $container." -account "$group"
 	} 

@@ -18,7 +18,7 @@
 #You will need to update the path with the location of the start-accountManagement script
 
 Invoke-Expression "Z:\Educational-Data-and-Account-Generation-Engine\modules\active-directory\start-accountManagement.ps1 -class student -type add"
-Invoke-Expression "Z:\Educational-Data-and-Account-Generation-Engine\modules\active-directory\start-accountManagement.ps1 -class student -type delete"
+Invoke-Expression "Z:\Educational-Data-and-Account-Generation-Engine\modules\active-directory\start-accountManagement.ps1 -class student -type disable"
 Invoke-Expression "Z:\Educational-Data-and-Account-Generation-Engine\modules\active-directory\start-accountManagement.ps1 -class student -type update"
 Invoke-Expression "Z:\Educational-Data-and-Account-Generation-Engine\modules\active-directory\start-accountManagement.ps1 -class global -type update-courses"
 Invoke-Expression "Z:\Educational-Data-and-Account-Generation-Engine\modules\active-directory\start-accountManagement.ps1 -class global -type update-enrollments"

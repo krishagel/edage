@@ -64,11 +64,13 @@ from enr_d0 v"
 		}
 	} else {
 		# Query single record from the database
-		$result = Invoke-MySQLQuery $daily_sql -parameters @{account=$account} -conn $conn
-		if ($WhatIfPreference -eq $true) {
-			add-adGroupMember -group $result.group_short_name -account $result.username -WhatIf
-		} else {
-			add-adGroupMember -group $result.group_short_name -account $result.username
+		$all_results = Invoke-MySQLQuery $all_add_sql -parameters @{account=$account} -conn $conn
+		Foreach ($result in $all_results) {
+			if ($WhatIfPreference -eq $true) {
+				add-adGroupMember -group $result.group_short_name -account $result.username -WhatIf
+			} else {
+				add-adGroupMember -group $result.group_short_name -account $result.username
+			}
 		}
 	}
 }

@@ -1,7 +1,8 @@
 select 
     DISTINCT(stu.`OTHER-ID`) student_id, n.`FIRST-NAME` first_name, n.`MIDDLE-NAME` middle_name, 
     n.`LAST-NAME` last_name, 
-    (12 - (stu.`GRAD-YR` - (if( (month(CURRENT_DATE) = 7 and day(CURRENT_DATE) >=1) or month(CURRENT_DATE) >= 8, year(CURRENT_DATE)+1, year(CURRENT_DATE)) ))) grade, 
+    IF ((12 - (stu.`GRAD-YR` - (if( (month(CURRENT_DATE) = 7 and day(CURRENT_DATE) >=1) or month(CURRENT_DATE) >= 8, year(CURRENT_DATE)+1, year(CURRENT_DATE)) ))) = 0, 'K', 
+        (12 - (stu.`GRAD-YR` - (if( (month(CURRENT_DATE) = 7 and day(CURRENT_DATE) >=1) or month(CURRENT_DATE) >= 8, year(CURRENT_DATE)+1, year(CURRENT_DATE)) )))) grade, 
     en.`ENTITY-ID` school_id, 
     concat(left(n.`PRIMARY-PHONE`,3),'.',mid(n.`PRIMARY-PHONE`,4,3),'.',right(n.`PRIMARY-PHONE`,4)) phone, DATE_FORMAT(n.BIRTHDATE, '%Y-%m-%d') birthdate,
     CONCAT(LTRIM(IFNULL(a.`STREET-NUMBER`,'')),' ',IFNULL(RTRIM(a.`STREET-NAME`),''),'   ',IFNULL(LTRIM(a.`STREET-APPT`),'')) street, 

@@ -28,7 +28,7 @@ function disable-adAccount
 	$error.Clear()
 	
 	try {
-		$expireDate = [datetime]::Now.AddDays(180)
+		$expireDate = [datetime]::Now.AddDays($disabled_days)
 		if ($WhatIfPreference -eq $true) {
 			Move-QADObject -Identity $account -NewParentContainer $container -WhatIf
 			Set-QADUser -Identity $account -Description $expireDate -AccountExpires $expireDate -WhatIf

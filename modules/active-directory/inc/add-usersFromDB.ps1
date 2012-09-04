@@ -28,7 +28,7 @@ function add-usersFromDB
 
 	$global_sql = "select v.username account, v.school_id container, v.password password, 
 CONCAT(IFNULL(v.last_name,''),', ',IFNULL(v.first_name,''),' ',IFNULL(LEFT(v.middle_name,1),'')) displayName,
-CONCAT(v.username,'@',(SELECT c.value FROM lu_config c WHERE c.key = 'stu_email_domain')) email, 
+CONCAT(RTRIM(v.username),'@',(SELECT c.value FROM lu_config c WHERE c.key = 'stu_email_domain')) email, 
 'student' type, v.student_id idnum, v.grade grade, v.last_name lastName,
 v.first_name firstName, LEFT(v.middle_name,1) middleInitial, 
 CONCAT(LEFT(v.first_name,1),LEFT(v.middle_name,1),LEFT(v.last_name,1)) initials,
@@ -64,7 +64,7 @@ from stu_d0 v WHERE v.username = @account"
 	
 	$all_sql = "select v.username account, v.school_id container, v.password password, 
 CONCAT(IFNULL(v.last_name,''),', ',IFNULL(v.first_name,''),' ',IFNULL(LEFT(v.middle_name,1),'')) displayName,
-CONCAT(v.username,'@',(SELECT c.value FROM lu_config c WHERE c.key = 'stu_email_domain')) email, 
+CONCAT(RTRIM(v.username),'@',(SELECT c.value FROM lu_config c WHERE c.key = 'stu_email_domain')) email, 
 'student' type, v.student_id idnum, v.grade grade, v.last_name lastName,
 v.first_name firstName, LEFT(v.middle_name,1) middleInitial, 
 CONCAT(LEFT(v.first_name,1),LEFT(v.middle_name,1),LEFT(v.last_name,1)) initials,
@@ -90,17 +90,32 @@ from stu_d0 v"
 		Foreach ($result in $results) {
 			$container_base = stu_ad_home_map -school_id $result.container
 			$container = $container_base + '/' + $result.grade
-			$stuClassGroup = $container_base + '/Groups/' + $result.school_abbr + 'Students'
-			$stuGradeGroup = $container_base + '/Groups/' + $result.school_abbr + '-' + $result.grade
+			$stuClassGroup = $result.school_abbr + 'Students'
+			$stuGradeGroup = $result.school_abbr + '-' + $result.grade
 
 			if ($WhatIfPreference -eq $true) {
-				add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress -WhatIf
-				add-adGroupMember -group $stuClassGroup -account $result.account -WhatIf
-				add-adGroupMember -group $stuGradeGroup -account $result.account -WhatIf
+				if(Get-QADUser $result.account) {
+					update-adAccount -currentAccount $result.account -newAccount $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress -WhatIf
+					add-adGroupMember -group $stuClassGroup -account $result.account -WhatIf
+					add-adGroupMember -group $stuGradeGroup -account $result.account -WhatIf
+				} else {
+					add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress -WhatIf
+					add-adGroupMember -group $stuClassGroup -account $result.account -WhatIf
+					add-adGroupMember -group $stuGradeGroup -account $result.account -WhatIf
+					create-userHomeDir -user $result.account -class student -lookup $result.container -WhatIf
+				}
 			} else {
-				add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress
-				add-adGroupMember -group $stuClassGroup -account $result.account
-				add-adGroupMember -group $stuGradeGroup -account $result.account
+				if(Get-QADUser $result.account) {
+					update-adAccount -currentAccount $result.account -newAccount $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress
+					add-adGroupMember -group $stuClassGroup -account $result.account
+					add-adGroupMember -group $stuGradeGroup -account $result.account
+					update-userHomeLocation -user $result.account -class student -lookup $result.container
+				} else {
+					add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress
+					add-adGroupMember -group $stuClassGroup -account $result.account
+					add-adGroupMember -group $stuGradeGroup -account $result.account
+					create-userHomeDir -user $result.account -class student -lookup $result.container
+				}
 			}
 	 	}
 	} elseif ($account -eq 'all') {
@@ -110,17 +125,32 @@ from stu_d0 v"
 		Foreach ($result in $results) {
 			$container_base = stu_ad_home_map -school_id $result.container
 			$container = $container_base + '/' + $result.grade
-			$stuClassGroup = $container_base + '/Groups/' + $result.school_abbr + 'Students'
-			$stuGradeGroup = $container_base + '/Groups/' + $result.school_abbr + '-' + $result.grade
+			$stuClassGroup = $result.school_abbr + 'Students'
+			$stuGradeGroup = $result.school_abbr + '-' + $result.grade
 
 			if ($WhatIfPreference -eq $true) {
-				add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress -WhatIf
-				add-adGroupMember -group $stuClassGroup -account $result.account -WhatIf
-				add-adGroupMember -group $stuGradeGroup -account $result.account -WhatIf
+				if(Get-QADUser $result.account) {
+					update-adAccount -currentAccount $result.account -newAccount $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress -WhatIf
+					add-adGroupMember -group $stuClassGroup -account $result.account -WhatIf
+					add-adGroupMember -group $stuGradeGroup -account $result.account -WhatIf
+				} else {
+					add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress -WhatIf
+					add-adGroupMember -group $stuClassGroup -account $result.account -WhatIf
+					add-adGroupMember -group $stuGradeGroup -account $result.account -WhatIf
+					create-userHomeDir -user $result.account -class student -lookup $result.container -WhatIf
+				}
 			} else {
-				add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress
-				add-adGroupMember -group $stuClassGroup -account $result.account
-				add-adGroupMember -group $stuGradeGroup -account $result.account
+				if(Get-QADUser $result.account) {
+					update-adAccount -currentAccount $result.account -newAccount $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress
+					add-adGroupMember -group $stuClassGroup -account $result.account
+					add-adGroupMember -group $stuGradeGroup -account $result.account
+					update-userHomeLocation -user $result.account -class student -lookup $result.container
+				} else {
+					add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress
+					add-adGroupMember -group $stuClassGroup -account $result.account
+					add-adGroupMember -group $stuGradeGroup -account $result.account
+					create-userHomeDir -user $result.account -class student -lookup $result.container
+				}
 			}
 	 	}
 	} else {
@@ -128,17 +158,32 @@ from stu_d0 v"
 		$result = Invoke-MySQLQuery $single_sql -parameters @{account=$account} -conn $conn
 		$container_base = stu_ad_home_map -school_id $result.container
 		$container = $container_base + '/' + $result.grade
-		$stuClassGroup = $container_base + '/Groups/' + $result.school_abbr + 'Students'
-		$stuGradeGroup = $container_base + '/Groups/' + $result.school_abbr + '-' + $result.grade
+		$stuClassGroup = $result.school_abbr + 'Students'
+		$stuGradeGroup = $result.school_abbr + '-' + $result.grade
 	
 		if ($WhatIfPreference -eq $true) {
-			add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress -WhatIf
-			add-adGroupMember -group $stuClassGroup -account $result.account -WhatIf
-			add-adGroupMember -group $stuGradeGroup -account $result.account -WhatIf
+			if(Get-QADUser $result.account) {
+				update-adAccount -currentAccount $result.account -newAccount $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress -WhatIf
+				add-adGroupMember -group $stuClassGroup -account $result.account -WhatIf
+				add-adGroupMember -group $stuGradeGroup -account $result.account -WhatIf
+			} else {
+				add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress -WhatIf
+				add-adGroupMember -group $stuClassGroup -account $result.account -WhatIf
+				add-adGroupMember -group $stuGradeGroup -account $result.account -WhatIf
+				create-userHomeDir -user $result.account -class student -lookup $result.container -WhatIf
+			}
 		} else {
-			add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress
-			add-adGroupMember -group $stuClassGroup -account $result.account
-			add-adGroupMember -group $stuGradeGroup -account $result.account
+			if(Get-QADUser $result.account) {
+				update-adAccount -currentAccount $result.account -newAccount $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress
+				add-adGroupMember -group $stuClassGroup -account $result.account
+				add-adGroupMember -group $stuGradeGroup -account $result.account
+				update-userHomeLocation -user $result.account -class student -lookup $result.container
+			} else {
+				add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress
+				add-adGroupMember -group $stuClassGroup -account $result.account
+				add-adGroupMember -group $stuGradeGroup -account $result.account
+				create-userHomeDir -user $result.account -class student -lookup $result.container -WhatIf
+			}
 		}
 	}
 }

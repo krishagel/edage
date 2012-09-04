@@ -102,43 +102,43 @@ switch($class) {
 			"add" {
 				if ($account) {
 					write-dblog -header "Student Add" -message "Initialization" -account $acct
-					add-usersFromDB -account $account -WhatIf
+					add-usersFromDB -account $account
 				} else {
 					write-dblog -header "Student Add" -message "Initialization" -account "Global"
-					add-usersFromDB -account 'global' -WhatIf
+					add-usersFromDB -account 'global'
 				}
 			}
 			"delete" {
 				if ($account) {
 					write-dblog -header "Student Delete" -message "Initialization" -account $acct
-					remove-adAccount -account $account -WhatIf
+					remove-adAccount -account $account
 				} else {
-					write-dblog -header "Student Delete" -message "Initialization" -account "Global"
-					remove-usersFromDB -WhatIf
+					Write-Host "You must provide an account to delete a student."
 				}
 			}
 			"update" {
 				if ($account) {
 					write-dblog -header "Student Update" -message "Initialization" -account $acct
-					update-usersFromDB -account $account -WhatIf
+					update-usersFromDB -account $account
 				} else {
 					write-dblog -header "Student Update" -message "Initialization" -account "Global"
-					update-usersFromDB -account "global" -WhatIf
+					update-usersFromDB -account "global"
 				}
 			}
 			"disable" {
 				if ($account) {
 					write-dblog -header "Student Disable" -message "Initialization" -account $acct
-					disable-adAccount -account $account -container $disabledUserOU -WhatIf
+					disable-adAccount -account $account -container $disabledUserOU
 				} else {
-					Write-Host "You must provide an account to disable a student."
+					write-dblog -header "Student Disable" -message "Initialization" -account "Global"
+					disable-usersFromDB
 				}
 			}
 			"enable" {
 				if ($account) {
 					write-dblog -header "Student Enable" -message "Initialization" -account $acct
 					enable-adAccount -account username -container $disabledUserOU -description 'Temporarily Re-Enabled Acccount'
-					update-usersFromDB -account $account -WhatIf
+					update-usersFromDB -account $account
 				} else {
 					Write-Host "You must provide an account to enable a student."
 				}
@@ -195,23 +195,27 @@ switch($class) {
 		switch ($type) {
 			"update-courses" {
 				write-dblog -header "Update Courses Daily" -message "Initialization" -account "Global"
-				add-coursesFromDB -scope "daily" -WhatIf
+				add-coursesFromDB -scope "daily"
 			}
 			"update-enrollments" {
 				write-dblog -header "Update Enrollments Daily" -message "Initialization" -account "Global"
-				update-enrollmentsFromDB -scope "daily" -WhatIf
+				update-enrollmentsFromDB -scope "daily"
 			}
 			"add-allCourses" {
 				write-dblog -header "Add All Courses" -message "Initialization" -account "Global"
-				add-coursesFromDB -scope "global" -WhatIf
+				add-coursesFromDB -scope "global"
 			}
 			"add-allEnrollments" {
 				write-dblog -header "Add All Enrollments" -message "Initialization" -account "Global"
-				update-enrollmentsFromDB -scope "all" -WhatIf
+				update-enrollmentsFromDB -scope "all"
 			}
 			"add-allStudents" {
 				write-dblog -header "Add All Students" -message "Initialization" -account "Global"
-				add-usersFromDB -account 'all' -WhatIf
+				add-usersFromDB -account 'all'
+			}
+			"check-stuHomeFolders" {
+				write-dblog -header "Check Student Home Folders" -message "Initialization" -account "Global"
+				check-userHomeExistence -class 'student'
 			}
 			default {"'Type' is a required parameter"}
 		}
