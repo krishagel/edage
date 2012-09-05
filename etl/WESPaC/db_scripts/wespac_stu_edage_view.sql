@@ -1,5 +1,5 @@
 select 
-    DISTINCT(stu.`OTHER-ID`) student_id, n.`FIRST-NAME` first_name, n.`MIDDLE-NAME` middle_name, 
+    DISTINCT(RTRIM(stu.`OTHER-ID`)) student_id, n.`FIRST-NAME` first_name, n.`MIDDLE-NAME` middle_name, 
     n.`LAST-NAME` last_name, 
     IF ((12 - (stu.`GRAD-YR` - (if( (month(CURRENT_DATE) = 7 and day(CURRENT_DATE) >=1) or month(CURRENT_DATE) >= 8, year(CURRENT_DATE)+1, year(CURRENT_DATE)) ))) = 0, 'K', 
         (12 - (stu.`GRAD-YR` - (if( (month(CURRENT_DATE) = 7 and day(CURRENT_DATE) >=1) or month(CURRENT_DATE) >= 8, year(CURRENT_DATE)+1, year(CURRENT_DATE)) )))) grade, 

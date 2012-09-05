@@ -36,6 +36,7 @@ function create-userHomeDir
 	try {
 		if ($WhatIfPreference -eq $true) {
 			New-Item $new_home -Type directory -WhatIf
+			Start-Sleep -Seconds 10
 			$access = Get-Acl $new_home -WhatIf
 			$FileSystemRights = [System.Security.AccessControl.FileSystemRights]"FullControl"
 			$AccessControlType = [System.Security.AccessControl.AccessControlType]"Allow"
@@ -47,6 +48,7 @@ function create-userHomeDir
 			Set-Acl $new_home $access -WhatIf
 		} else {
 			New-Item $new_home -Type directory
+			Start-Sleep -Seconds 10
 			$access = Get-Acl $new_home
 			$FileSystemRights = [System.Security.AccessControl.FileSystemRights]"FullControl"
 			$AccessControlType = [System.Security.AccessControl.AccessControlType]"Allow"
