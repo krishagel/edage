@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config version="3.1.3" id="e204eb32bf6043da93001b25fd108e51" rev="82d8ea9c3dc14c56ba4b40ab31e755e9">
+<config version="3.1.3" id="e204eb32bf6043da93001b25fd108e51" rev="72c59922e13646fa830aec8cc2acf578">
   <features>
     <optional>MULTIDOMAIN</optional>
     <optional>SKIP_GROUPS</optional>
@@ -13,17 +13,17 @@
     <optional>SKIP_SHARED_CONTACTS</optional>
     <optional>GROUP_DESCRIPTION</optional>
     <optional>GOOGLE_QUOTA</optional>
-    <optional>GIVEN_NAME</optional>
     <optional>FAMILY_NAME</optional>
-    <optional>SKIP_ORGUNIT_PROVISIONING</optional>
+    <optional>GIVEN_NAME</optional>
     <optional>INDEPENDENT_GROUP_SYNC</optional>
-    <optional>NON_ADDRESS_PRIMARY_KEY</optional>
     <optional>BASE64_PASSWORD</optional>
+    <optional>NON_ADDRESS_PRIMARY_KEY</optional>
     <optional>SKIP_USER_PROFILES</optional>
+    <optional>SKIP_ORGUNIT_PROVISIONING</optional>
     <optional>SKIP_EXISTING_PASSWORDS</optional>
     <optional>FORCE_PASSWORD_CHANGE</optional>
-    <optional>GROUP_OWNER</optional>
     <optional>SKIP_CALENDAR_RESOURCES</optional>
+    <optional>GROUP_OWNER</optional>
     <required>SUPPRESS_DOMAIN</required>
   </features>
   <logging>
@@ -82,7 +82,7 @@
           <dominoWhiteSpaceReplaceChar>.</dominoWhiteSpaceReplaceChar>
           <givenNameAttrName>givenName</givenNameAttrName>
           <familyNameAttrName>sn</familyNameAttrName>
-          <defaultPasswordEncrypted>pZMKoJ38Hun3BJGex5qRNA==</defaultPasswordEncrypted>
+          <defaultPasswordEncrypted>xgRE1ujjakSjdzIwe2DjkQ==</defaultPasswordEncrypted>
           <generatedPasswordLength>8</generatedPasswordLength>
           <resultsPageSize>1000</resultsPageSize>
           <orgunits>
