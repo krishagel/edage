@@ -10,7 +10,7 @@
 	Author		:	Kris Hagel - kris@krishagel.com
 	Date		:	August 15, 2012
 .LINK
-	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+	https://github.com/krishagel/edage
 .EXAMPLE
 	add-adAccount -account doej -container 'domain/ou/Students' -password SecretPassword -displayName "Doe, John C" -email doej@schooldomain -type staff -idnum "DOE  JOH000" -lastName Doe -firstName John -middleInitial C -initials JCD -title Consultant -phone 253.555.1212 -department Consulting -company Self-Employed -city Tacoma -state WA -zip 98446 -street "1234 Park Lane" -homePhone 253.555.2121 -homeAddress "1234 Park Lane, Tacoma, WA 98446" -homeDrive D: 
 

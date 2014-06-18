@@ -9,7 +9,7 @@
 	Author		:	Kris Hagel - kris@krishagel.com
 	Date		:	August 23, 2012
 .LINK
-	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+	https://github.com/krishagel/edage
 .EXAMPLE
 	create-userHomeDir -user SXXXXXXX -class student -lookup 136
 	Create user home directory for user account SXXXXXXX who is a student and exists at location 136
@@ -36,7 +36,7 @@ function create-userHomeDir
 	try {
 		if ($WhatIfPreference -eq $true) {
 			New-Item $new_home -Type directory -WhatIf
-			Start-Sleep -Seconds 10
+			Start-Sleep -Seconds 30
 			$access = Get-Acl $new_home -WhatIf
 			$FileSystemRights = [System.Security.AccessControl.FileSystemRights]"FullControl"
 			$AccessControlType = [System.Security.AccessControl.AccessControlType]"Allow"
@@ -48,7 +48,7 @@ function create-userHomeDir
 			Set-Acl $new_home $access -WhatIf
 		} else {
 			New-Item $new_home -Type directory
-			Start-Sleep -Seconds 10
+			Start-Sleep -Seconds 30
 			$access = Get-Acl $new_home
 			$FileSystemRights = [System.Security.AccessControl.FileSystemRights]"FullControl"
 			$AccessControlType = [System.Security.AccessControl.AccessControlType]"Allow"

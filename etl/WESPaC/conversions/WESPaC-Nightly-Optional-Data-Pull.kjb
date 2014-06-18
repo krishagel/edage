@@ -20,7 +20,7 @@
     <database>wespac</database>
     <port>1521</port>
     <username>roodbcuser01</username>
-    <password>Encrypted 2be98afc8389496b78b10a2428f95a7ce</password>
+    <password></password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -42,7 +42,7 @@
     <database>wespac_staging</database>
     <port>3306</port>
     <username>khagel</username>
-    <password>Encrypted 2be98afc86aa7f2e4f80eab74fd95fe88</password>
+    <password></password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>

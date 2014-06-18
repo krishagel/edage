@@ -9,7 +9,7 @@
 	Author		:	Kris Hagel - kris@krishagel.com
 	Date		:	August 16, 2012
 .LINK
-	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+	https://github.com/krishagel/edage
 .EXAMPLE
 	add-usersFromDB -account username
 .EXAMPLE
@@ -42,7 +42,8 @@ CONCAT('Grade ',v.grade,' Student') title,
 (SELECT s.zip FROM lu_schools s WHERE s.school_id = v.school_id) zip,
 (SELECT s.street FROM lu_schools s WHERE s.school_id = v.school_id) street,
 v.phone homePhone, CONCAT(IFNULL(v.street,''),', ',IFNULL(v.city,''),', ',IFNULL(v.state,''),' ',IFNULL(v.zip,'')) homeAddress
-from v_stu_d_add v"
+from v_stu_d_add v
+where v.grade >= 0"
 	
 	$single_sql = "select v.username account, v.school_id container, v.password password, 
 CONCAT(IFNULL(v.last_name,''),', ',IFNULL(v.first_name,''),' ',IFNULL(LEFT(v.middle_name,1),'')) displayName,
@@ -78,7 +79,8 @@ CONCAT('Grade ',v.grade,' Student') title,
 (SELECT s.zip FROM lu_schools s WHERE s.school_id = v.school_id) zip,
 (SELECT s.street FROM lu_schools s WHERE s.school_id = v.school_id) street,
 v.phone homePhone, CONCAT(IFNULL(v.street,''),', ',IFNULL(v.city,''),', ',IFNULL(v.state,''),' ',IFNULL(v.zip,'')) homeAddress
-from stu_d0 v"
+from stu_d0 v
+where v.grade >= 0"
 
 	# Open the database connection
 	$conn = New-MySQLConnection -server $dbserver -user $dbuser -password $dbpass -database $edage_db
@@ -182,7 +184,7 @@ from stu_d0 v"
 				add-adAccount -account $result.account -container $container -password $result.password -displayName $result.displayName -email $result.email -type $result.type -idnum $result.idnum -lastName $result.lastName -firstName $result.firstName -middleInitial $result.middleInitial -initials $result.initials -title $result.title -phone $result.phone -department $result.department -company $result.company -city $result.city -state $result.state -zip $result.zip -street $result.street -homePhone $result.homePhone -homeAddress $result.homeAddress
 				add-adGroupMember -group $stuClassGroup -account $result.account
 				add-adGroupMember -group $stuGradeGroup -account $result.account
-				create-userHomeDir -user $result.account -class student -lookup $result.container -WhatIf
+				create-userHomeDir -user $result.account -class student -lookup $result.container
 			}
 		}
 	}

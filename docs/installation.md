@@ -10,7 +10,7 @@
 ### Basic Installation Steps
 
 1. Git Clone the EDAGE repository:
-	* `git clone https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine.git`
+	* `git clone https://github.com/krishagel/edage.git`
 2. Install edage database into MySQL server:
 	* The _extras/db_scripts_ folder holds a sql script that when run will install the edage database.
 3. Install edage_logs database into MySQL server:

@@ -19,7 +19,7 @@
     <database>edage</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86a8486978b0efc7bce80a09e</password>
+    <password></password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>

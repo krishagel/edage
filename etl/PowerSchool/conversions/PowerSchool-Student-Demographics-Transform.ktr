@@ -76,7 +76,7 @@
     <database>edage</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86a8486978b0efc7bce80a09e</password>
+    <password></password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -101,7 +101,7 @@
     <database>psproddb</database>
     <port>1521</port>
     <username>ps</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79be639db68d9f</password>
+    <password></password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>

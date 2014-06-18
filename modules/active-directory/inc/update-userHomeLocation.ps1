@@ -9,7 +9,7 @@
 	Author		:	Kris Hagel - kris@krishagel.com
 	Date		:	August 23, 2012
 .LINK
-	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+	https://github.com/krishagel/edage
 .EXAMPLE
 	update-userHomeLocation -user SXXXXXXX -class student -lookup 136
 	Create user home directory for user account SXXXXXXX who is a student and exists at location 136

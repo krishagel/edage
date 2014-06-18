@@ -9,7 +9,7 @@
 	Author		:	Kris Hagel - kris@krishagel.com
 	Date		:	August 10, 2012
 .LINK
-	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+	https://github.com/krishagel/edage
 	
 #>
 
@@ -18,16 +18,17 @@ Add-PSSnapin Quest.ActiveRoles.ADManagement -ErrorAction SilentlyContinue
 
 # Load the SQLPSX Module to be able to use MySQL database in scripts
 Import-Module mysqllib
+Add-Type -Path 'C:\Program Files (x86)\MySQL\MySQL Connector Net 6.7.4\Assemblies\v4.5\MySql.Data.dll'
 
 # Days since an account has been disabled before it is removed
 $disabled_days = 180
 
 # If you store secure settings outside project root, include it here.  By default this is unnecessary and you can just comment this out or remove it.
-. "E:\edage-secure\read-secureSettings.ps1"
+. "Z:\edage-secure\read-secureSettings.ps1"
 
 # Disabled User OU
 
-$disabledUserOU = 'peninsula.wednet.edu/Inactive Accounts'
+$disabledUserOU = 'tsd.int/TSD/Inactive Accounts'
 
 # Course Groups Sub-Container
 

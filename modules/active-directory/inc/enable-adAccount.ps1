@@ -11,7 +11,7 @@
 	Author		:	Kris Hagel - kris@krishagel.com
 	Date		:	August 15, 2012
 .LINK
-	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+	https://github.com/krishagel/edage
 .EXAMPLE
 	enable-adAccount -account username -container 'domain/ou/container' -description 'Usually Title Of Account'
 
@@ -43,6 +43,6 @@ function enable-adAccount
 	catch {
 		$errMsg = "Enabling user error= $($error[0])"
 		$errMsg = $errMsg.replace("'","''")
-		write-dblog -header "Acct Disable Error" -message $errMsg -account "$account"
+		write-dblog -header "Acct Enable Error" -message $errMsg -account "$account"
 	}
 }

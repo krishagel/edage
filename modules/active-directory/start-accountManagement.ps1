@@ -9,7 +9,7 @@
 	Author		:	Kris Hagel - kris@krishagel.com
 	Date		:	August 10, 2012
 .LINK
-	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+	https://github.com/krishagel/edage
 .PARAMETER class
 	Class of user.  Possible values: staff, student, contract
 .PARAMETER type
@@ -17,8 +17,8 @@
 .PARAMETER acct
 	If a function needs a specific user account, pass it in with this parameter.
 .EXAMPLE
-	.\start-accountManagement.ps1 -class staff -type add -acct HAGELKRI000
-	Adds new staff account for an employee with the employee number: HAGELKRI000
+	.\start-accountManagement.ps1 -class student -type add -account s0108710
+	Adds new student account for an student with the new username as: s0108710
 .EXAMPLE
 	.\start-accountManagement.ps1 -class student -type update
 	Updates all student accounts that have changes in the last day.  Will move containers and groups if necessary.

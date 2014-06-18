@@ -1,4 +1,4 @@
-# Educational Data & Account Generation Engine
+# EDAGE - Educational Data & Account Generation Engine
 
 ## Overview
 
@@ -8,8 +8,6 @@
 
 * [MySQL Database](http://dev.mysql.com/downloads/mysql/)
 * [Pentaho Data Integration (Kettle)](http://sourceforge.net/projects/pentaho/files/Data%20Integration/)
-* [PHP](http://php.net/downloads.php) (Plus these add-onsw)
-	* [Slim Framework](http://www.slimframework.com/code)
 * [PowerShell](http://technet.microsoft.com/en-us/library/bb978526.aspx) (Plus these modules)
   * [SQLPSX](http://sqlpsx.codeplex.com/)
   * [Quest AD Cmdlets](http://www.quest.com/powershell/activeroles-server.aspx)

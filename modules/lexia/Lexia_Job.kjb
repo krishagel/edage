@@ -40,8 +40,8 @@
       <servername>files.mylexia.com</servername>
       <serverport>22</serverport>
       <username>tsdn4_6558</username>
-      <password>Encrypted 2be98afc86aa7f2e4a8288c74cf8b82c8</password>
-      <sftpdirectory/>
+      <password></password>
+      <sftpdirectory>imports</sftpdirectory>
       <localdirectory>Z:\Educational-Data-and-Account-Generation-Engine\modules\lexia\export</localdirectory>
       <wildcard/>
       <copyprevious>N</copyprevious>

@@ -56,7 +56,7 @@
         <config version="0.2">
           <domain>tukwila.wednet.edu</domain>
           <loginMethod>OAUTH2</loginMethod>
-          <oAuth2RefreshToken>jlTClwNmUQNQszTm6gU5n3CeiagcwtjPxkoNYtb0Bj+DjdvEFOb1X/vHGfPEYU0A</oAuth2RefreshToken>
+          <oAuth2RefreshToken></oAuth2RefreshToken>
           <googleUsersSyncThreads>30</googleUsersSyncThreads>
           <googleProfilesSyncThreads>30</googleProfilesSyncThreads>
           <googleContactsSyncThreads>15</googleContactsSyncThreads>
@@ -75,14 +75,14 @@
           <basedn>ou=TSD,dc=tsd,dc=int</basedn>
           <authType>SIMPLE</authType>
           <authUser>CN=kris hagel,CN=Users,DC=tsd,DC=int</authUser>
-          <authCredentialsEncrypted>ulE5jnDp0M9MtdKgUGJqUg==</authCredentialsEncrypted>
+          <authCredentialsEncrypted></authCredentialsEncrypted>
           <nonAddressPrimaryKeyAttrName>objectGUID</nonAddressPrimaryKeyAttrName>
           <emailAttrName>mail</emailAttrName>
           <aliasAttrName>proxyAddresses</aliasAttrName>
           <dominoWhiteSpaceReplaceChar>.</dominoWhiteSpaceReplaceChar>
           <givenNameAttrName>givenName</givenNameAttrName>
           <familyNameAttrName>sn</familyNameAttrName>
-          <defaultPasswordEncrypted>pZMKoJ38Hun3BJGex5qRNA==</defaultPasswordEncrypted>
+          <defaultPasswordEncrypted></defaultPasswordEncrypted>
           <generatedPasswordLength>8</generatedPasswordLength>
           <resultsPageSize>1000</resultsPageSize>
           <orgunits>

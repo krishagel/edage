@@ -10,7 +10,7 @@
 	Author		:	Kris Hagel - kris@krishagel.com
 	Date		:	August 15, 2012
 .LINK
-	https://github.com/krishagel/Educational-Data-and-Account-Generation-Engine
+	https://github.com/krishagel/edage
 .EXAMPLE
 	reset-adPwd -user username -password newSecretPassword
 	
