@@ -25,7 +25,7 @@ Schools have many systems that they need integrated on a daily basis and E.D.A.G
 
 Hopefully in the near future we will also be able to support Aspen SIS as well as many other Student & Employee Information systems.
 
-##### External Systems
+##### Present & Future External Systems
 * Active Directory Accounts
 * [Google Apps](http://www.google.com/apps/intl/en/edu/index.html)
 * [Moodle](http://moodle.org)
@@ -33,8 +33,6 @@ Hopefully in the near future we will also be able to support Aspen SIS as well a
 * [MealTime](http://www.mealtimeclm.com)
 * [InTouch](http://www.hdbakerpos.com)
 * [TeacherDashboard](http://www.hapara.com)
-* [Blufish](http://www.blufish.me)
-* [TypingMaster](http://www.typingmaster.com/)
 
 Adding support for other systems will come over time.  As the architecture is quite modular, adding support for a new external system should be a fairly simple task.  There will also be a simple RESTful API that will assist in connections to other external systems if you have the programming knowledge available.
 
